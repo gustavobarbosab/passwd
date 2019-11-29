@@ -44,10 +44,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.passwd.ToolbarPSWD
+        <com.passwd.common.ToolbarPSWD
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
-            app:layout_collapseMode="pin" />
+            app:layout_collapseMode="pin"
+            app:toolbarTitle="@string/teste_teste" />
 
     </com.google.android.material.appbar.CollapsingToolbarLayout>
 
