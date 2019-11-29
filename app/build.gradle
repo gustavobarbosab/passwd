@@ -27,9 +27,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation Dependencies.koin_android
     implementation Dependencies.appcompat
     implementation Dependencies.core
     implementation Dependencies.constraint_layout
+    implementation Dependencies.material
+    implementation Dependencies.koin_android
     implementation Dependencies.testlib_junit
+    implementation Dependencies.recyclerview
 }
