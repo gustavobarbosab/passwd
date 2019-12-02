@@ -1,15 +1,16 @@
-package com.passwd.ui
+package com.passwd.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.passwd.databinding.ItemRecyclerMainBinding
+import com.passwd.ui.home.model.MainItemPassword
 
 class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>() {
 
-    private var passwords: MutableList<MainFields> = mutableListOf()
+    private var passwords: MutableList<MainItemPassword> = mutableListOf()
 
-    fun putData(passwords: List<MainFields>) {
+    fun setPasswords(passwords: List<MainItemPassword>) {
         with(this.passwords) {
             clear()
             addAll(passwords)
@@ -31,8 +32,8 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>
 
     inner class ViewHolder(private val binding: ItemRecyclerMainBinding)
         : RecyclerView.ViewHolder(binding.root) {
-        fun setupFields(fields: MainFields) {
-            binding.fields = fields
+        fun setupFields(password: MainItemPassword) {
+            binding.fields = password
         }
     }
 }

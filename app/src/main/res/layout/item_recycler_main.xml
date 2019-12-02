@@ -5,7 +5,7 @@
 
         <variable
             name="fields"
-            type="com.passwd.ui.MainFields" />
+            type="com.passwd.ui.home.model.MainItemPassword" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

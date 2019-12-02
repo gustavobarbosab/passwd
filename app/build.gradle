@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-kapt'
+
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -27,11 +29,28 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // Base
     implementation Dependencies.appcompat
     implementation Dependencies.core
     implementation Dependencies.constraint_layout
     implementation Dependencies.material
-    implementation Dependencies.koin_android
-    implementation Dependencies.testlib_junit
     implementation Dependencies.recyclerview
+
+    // Test
+    implementation Dependencies.testlib_junit
+
+    // DI
+    implementation Dependencies.koin_android
+    implementation Dependencies.koin_viewmodel
+    implementation Dependencies.koin_scope
+
+    // Room
+    implementation Dependencies.room_runtime
+    implementation Dependencies.room_ktx
+    kapt Dependencies.room_compiler
+    implementation Dependencies.room_rx
+
+    // RxAndroid
+    implementation Dependencies.rxjava
+    implementation Dependencies.rxandroid
 }

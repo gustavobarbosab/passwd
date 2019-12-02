@@ -45,8 +45,7 @@ object Versions {
     const val shimmer = "0.4.0"
 
     //ROOM
-    const val room_ktx = "2.2.0-rc01"
-    const val room_runtime = "2.2.0-rc01"
+    const val room_version = "2.2.0-rc01"
 
     //RXJava & RXAndroid
     const val rxjava = "3.0.0-RC2"

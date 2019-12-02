@@ -26,15 +26,17 @@ object Dependencies {
     const val rxjava = "io.reactivex.rxjava3:rxjava:${Versions.rxjava}"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid}"
 
-    const val room_ktx = "androidx.room:room-ktx:${Versions.room_ktx}"
-    const val room_runtime = "androidx.room:room-runtime:${Versions.room_runtime}"
-    const val room_compiler = "androidx.room:room-compiler:${Versions.room_runtime}"
+    const val room_ktx = "androidx.room:room-ktx:${Versions.room_version}"
+    const val room_runtime = "androidx.room:room-runtime:${Versions.room_version}"
+    const val room_compiler = "androidx.room:room-compiler:${Versions.room_version}"
+    const val room_rx = "androidx.room:room-rxjava2:${Versions.room_version}"
+    const val room_test = "androidx.room:room-testing::${Versions.room_version}"
 
     const val koin_android = "org.koin:koin-android:${Versions.koin_android}"
     const val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin_viewmodel}"
     const val koin_scope = "org.koin:koin-androidx-scope:${Versions.koin_scope}"
 
-    const val shimmer =  "com.facebook.shimmer:shimmer:${Versions.shimmer}"
+    const val shimmer = "com.facebook.shimmer:shimmer:${Versions.shimmer}"
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofit_rx_adapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit_rx_adapter}"
