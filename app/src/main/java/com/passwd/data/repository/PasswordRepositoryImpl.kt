@@ -15,8 +15,7 @@ class PasswordRepositoryImpl(private val localDataSource: PasswordDataSource) : 
         if (force || passwordCache.isEmpty()) {
             return localDataSource
                 .getPasswords()
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(Schedulers.io())
+                .compose { workThread(it) }
                 .doAfterSuccess {
                     passwordCache.clear()
                     passwordCache.addAll(it)
@@ -29,17 +28,21 @@ class PasswordRepositoryImpl(private val localDataSource: PasswordDataSource) : 
     override fun savePassword(password: PasswordDto): Completable =
         localDataSource
             .savePassword(password)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .compose { workThread(it) }
             .doAfterTerminate { passwordCache.add(password) }
 
     override fun deletePassword(password: PasswordDto): Completable =
         localDataSource
             .deletePassword(password)
+            .compose { workThread(it) }
             .doAfterTerminate { passwordCache.remove(password) }
 
     override fun editPassword(password: PasswordDto): Completable =
         localDataSource
             .editPassword(password)
+            .compose { workThread(it) }
             .doAfterTerminate { passwordCache.fill(password) }
+
+    private fun <T> workThread(single: Single<T>) = single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    private fun workThread(single: Completable) = single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }
