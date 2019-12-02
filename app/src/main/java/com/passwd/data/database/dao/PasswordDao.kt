@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.passwd.domain.PasswordDto
+import com.passwd.data.database.dto.PasswordDto
 import io.reactivex.Completable
 import io.reactivex.Single
 

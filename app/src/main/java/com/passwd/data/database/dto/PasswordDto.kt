@@ -1,4 +1,4 @@
-package com.passwd.domain
+package com.passwd.data.database.dto
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

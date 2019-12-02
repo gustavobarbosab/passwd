@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.passwd.R
 import com.passwd.data.repository.PasswordRepository
-import com.passwd.domain.PasswordDto
+import com.passwd.domain.PasswordModel
 import com.passwd.ui.home.model.MainItemPassword
 import com.passwd.ui.home.model.MainMapper
 import io.reactivex.disposables.CompositeDisposable
@@ -26,8 +26,9 @@ class MainViewModel(val repository: PasswordRepository) : ViewModel() {
         compositeDisposable.add(
             repository
                 .getPasswords(force)
-                .subscribe({ passwords ->
-                    passwords?.let { _passwordList.value = it.map { passwordDto -> MainMapper.map(passwordDto) } }
+                .map { MainMapper.mapToMainItemList(it) }
+                .subscribe({
+                    _passwordList.value = it
                 }, {
                     // TODO mapear mensagens depois
                     _error.value = "Houve um erro!"
@@ -38,9 +39,8 @@ class MainViewModel(val repository: PasswordRepository) : ViewModel() {
         // TODO implementação para testar a criação da lista
         compositeDisposable.add(
             repository
-                .savePassword(
-                    PasswordDto(name = "Teste 123", password = "12312", color = R.color.colorAccent)
-                ).subscribe({
+                .savePassword(PasswordModel(name = "Teste 123", password = "12312", color = R.color.colorAccent))
+                .subscribe({
                     fetchPasswords(true)
                 }, {
                     _error.value = "Houve um erro!"

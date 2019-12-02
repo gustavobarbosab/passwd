@@ -1,12 +1,12 @@
 package com.passwd.ui.home
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.passwd.R
+import com.passwd.common.extension.showShortToast
 import com.passwd.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import org.koin.androidx.scope.currentScope
@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         setupDataBinding()
         setupRecycler()
         observeList()
+        observeError()
+        viewModel.fetchPasswords()
     }
 
     private fun setupDataBinding() {
@@ -41,9 +43,15 @@ class MainActivity : AppCompatActivity() {
             .observe(this, Observer {
                 adapter.setPasswords(it)
                 adapter.notifyDataSetChanged()
-                Toast.makeText(this, "Lista carregada", Toast.LENGTH_SHORT).show()
+                showShortToast("Lista carregada!")
             })
+    }
 
-        viewModel.fetchPasswords()
+    private fun observeError() {
+        viewModel
+            .error
+            .observe(this, Observer {
+                showShortToast(it)
+            })
     }
 }

@@ -1,7 +1,7 @@
 package com.passwd.data.repository
 
 import com.passwd.data.source.PasswordDataSource
-import com.passwd.domain.PasswordDto
+import com.passwd.domain.PasswordModel
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -9,9 +9,9 @@ import io.reactivex.schedulers.Schedulers
 
 class PasswordRepositoryImpl(private val localDataSource: PasswordDataSource) : PasswordRepository {
 
-    private val passwordCache: MutableList<PasswordDto> = mutableListOf()
+    private val passwordCache: MutableList<PasswordModel> = mutableListOf()
 
-    override fun getPasswords(force: Boolean): Single<List<PasswordDto>> {
+    override fun getPasswords(force: Boolean): Single<List<PasswordModel>> {
         if (force || passwordCache.isEmpty()) {
             return localDataSource
                 .getPasswords()
@@ -25,19 +25,19 @@ class PasswordRepositoryImpl(private val localDataSource: PasswordDataSource) : 
         return Single.just(passwordCache)
     }
 
-    override fun savePassword(password: PasswordDto): Completable =
+    override fun savePassword(password: PasswordModel): Completable =
         localDataSource
             .savePassword(password)
             .compose { workThread(it) }
             .doAfterTerminate { passwordCache.add(password) }
 
-    override fun deletePassword(password: PasswordDto): Completable =
+    override fun deletePassword(password: PasswordModel): Completable =
         localDataSource
             .deletePassword(password)
             .compose { workThread(it) }
             .doAfterTerminate { passwordCache.remove(password) }
 
-    override fun editPassword(password: PasswordDto): Completable =
+    override fun editPassword(password: PasswordModel): Completable =
         localDataSource
             .editPassword(password)
             .compose { workThread(it) }

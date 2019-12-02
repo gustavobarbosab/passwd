@@ -1,15 +1,25 @@
 package com.passwd.ui.home.model
 
-import com.passwd.domain.PasswordDto
+import com.passwd.domain.PasswordModel
 
 class MainMapper {
     companion object {
-        fun map(passwordDto: PasswordDto): MainItemPassword =
+        fun mapToMainItem(passwordModel: PasswordModel): MainItemPassword =
             MainItemPassword(
-                passwordDto.id,
-                passwordDto.name,
-                passwordDto.password,
-                passwordDto.color
+                passwordModel.id,
+                passwordModel.name,
+                passwordModel.password,
+                passwordModel.color
             )
+
+        fun mapToMainItemList(passwordModel: List<PasswordModel>): List<MainItemPassword> =
+            passwordModel.map {
+                MainItemPassword(
+                    it.id,
+                    it.name,
+                    it.password,
+                    it.color
+                )
+            }
     }
 }

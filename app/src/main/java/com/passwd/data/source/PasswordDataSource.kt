@@ -1,16 +1,16 @@
 package com.passwd.data.source
 
-import com.passwd.domain.PasswordDto
+import com.passwd.domain.PasswordModel
 import io.reactivex.Completable
 import io.reactivex.Single
 
 interface PasswordDataSource {
 
-    fun savePassword(password: PasswordDto): Completable
+    fun savePassword(password: PasswordModel): Completable
 
-    fun deletePassword(password: PasswordDto): Completable
+    fun deletePassword(password: PasswordModel): Completable
 
-    fun getPasswords(): Single<List<PasswordDto>>
+    fun getPasswords(): Single<List<PasswordModel>>
 
-    fun editPassword(password: PasswordDto): Completable
+    fun editPassword(password: PasswordModel): Completable
 }
