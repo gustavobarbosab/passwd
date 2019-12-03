@@ -1,12 +1,11 @@
-package com.passwd.data.source
+package io.github.gustavobarbosab.domain.source
 
-import com.passwd.domain.PasswordModel
+import io.github.gustavobarbosab.domain.model.PasswordModel
 import io.reactivex.Completable
 import io.reactivex.Single
 
 interface PasswordDataSource {
-
-    fun savePassword(password: PasswordModel): Completable
+    fun savePassword(password: PasswordModel): Single<List<PasswordModel>>
 
     fun deletePassword(password: PasswordModel): Completable
 

@@ -1,4 +1,4 @@
-package com.passwd.data.database.di
+package com.passwd.di
 
 import android.content.Context
 import androidx.room.Room

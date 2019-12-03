@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
-    val viewModel: MainViewModel by viewModel()
+    val viewModel: MainViewModel by currentScope.viewModel(this)
     val adapter: MainRecyclerAdapter by currentScope.inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setupRecycler()
         observeList()
         observeError()
-        viewModel.fetchPasswords()
+        viewModel.fetchPasswords(true)
     }
 
     private fun setupDataBinding() {

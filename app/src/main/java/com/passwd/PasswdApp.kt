@@ -1,9 +1,9 @@
 package com.passwd
 
 import android.app.Application
-import com.passwd.data.database.di.DatabaseModule
-import com.passwd.data.repository.di.RepositoryModule
-import com.passwd.data.source.di.DataSourceModule
+import com.passwd.di.DatabaseModule
+import com.passwd.di.RepositoryModule
+import com.passwd.di.DataSourceModule
 import com.passwd.di.AppModule
 import com.passwd.ui.home.di.MainModule
 import org.koin.android.ext.koin.androidContext

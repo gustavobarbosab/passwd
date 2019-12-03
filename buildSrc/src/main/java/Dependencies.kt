@@ -23,7 +23,7 @@ object Dependencies {
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
-    const val rxjava = "io.reactivex.rxjava3:rxjava:${Versions.rxjava}"
+    const val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
     const val rxandroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid}"
 
     const val room_ktx = "androidx.room:room-ktx:${Versions.room_version}"

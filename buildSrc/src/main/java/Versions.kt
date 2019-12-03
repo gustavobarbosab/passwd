@@ -48,7 +48,7 @@ object Versions {
     const val room_version = "2.2.0-rc01"
 
     //RXJava & RXAndroid
-    const val rxjava = "3.0.0-RC2"
+    const val rxjava = "2.2.15"
     const val rxandroid = "2.1.1"
 
     //KOIN

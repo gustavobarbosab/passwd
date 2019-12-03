@@ -29,12 +29,15 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation project(':domain')
+
     // Base
     implementation Dependencies.appcompat
     implementation Dependencies.core
     implementation Dependencies.constraint_layout
     implementation Dependencies.material
     implementation Dependencies.recyclerview
+    implementation Dependencies.kotlin_stdlib_jdk7
 
     // Test
     implementation Dependencies.testlib_junit
@@ -51,6 +54,5 @@ dependencies {
     implementation Dependencies.room_rx
 
     // RxAndroid
-    implementation Dependencies.rxjava
     implementation Dependencies.rxandroid
 }
