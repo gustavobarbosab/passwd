@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.passwd.R
+import com.passwd.common.Event
 import com.passwd.ui.home.model.MainItemPassword
 import com.passwd.ui.home.model.MainMapper
 import io.github.gustavobarbosab.domain.interactor.MainPasswordListUseCase
@@ -18,8 +18,12 @@ class MainViewModel(private val mainUseCase: MainPasswordListUseCase,
     val passwordList: LiveData<List<MainItemPassword>>
         get() = _passwordList
 
-    private val _error: MutableLiveData<String> = MutableLiveData()
-    val error: LiveData<String>
+    private val _showCreatePasswordDialog: MutableLiveData<Event<Unit>> = MutableLiveData()
+    val showCreatePasswordDialog: LiveData<Event<Unit>>
+        get() = _showCreatePasswordDialog
+
+    private val _error: MutableLiveData<Event<String>> = MutableLiveData()
+    val error: LiveData<Event<String>>
         get() = _error
 
     fun fetchPasswords(force: Boolean) {
@@ -28,11 +32,8 @@ class MainViewModel(private val mainUseCase: MainPasswordListUseCase,
             .subscribe(this::onSuccess, this::onError)
     }
 
-    fun createFakePassword() {
-        // TODO implementação para testar a criação da lista
-        mainUseCase
-            .onCreatePassword(PasswordModel(null, "Teste Gustavo", "senha", R.color.colorAccent))
-            .subscribe(this::onSuccess, this::onError)
+    fun createPassword() {
+        _showCreatePasswordDialog.value = Event(Unit)
     }
 
     private fun onSuccess(passwords: List<PasswordModel>) {
@@ -40,7 +41,7 @@ class MainViewModel(private val mainUseCase: MainPasswordListUseCase,
     }
 
     private fun onError(error: Throwable) {
-        _error.value = "Houve um erro!"
+        _error.value = Event("Houve um erro!")
     }
 
     override fun onCleared() {

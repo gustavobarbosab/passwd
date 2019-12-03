@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:onClick="@{() -> viewModel.createFakePassword()}"
+            android:onClick="@{() -> viewModel.createPassword()}"
             android:src="@android:drawable/ic_input_add"
             android:tint="@android:color/white"
             app:backgroundTint="@color/colorDark"

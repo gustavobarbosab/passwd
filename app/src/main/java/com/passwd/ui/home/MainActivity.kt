@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.passwd.R
 import com.passwd.common.extension.showShortToast
 import com.passwd.databinding.ActivityMainBinding
+import com.passwd.ui.create.CreatePasswordDialog
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,7 +25,18 @@ class MainActivity : AppCompatActivity() {
         setupRecycler()
         observeList()
         observeError()
+        observeCreatePassword()
         viewModel.fetchPasswords(true)
+    }
+
+    private fun observeCreatePassword() {
+        viewModel
+            .showCreatePasswordDialog
+            .observe(this, Observer {
+                it.getContentIfNotHandled()?.let {
+                    CreatePasswordDialog().show(supportFragmentManager, "adasda")
+                }
+            })
     }
 
     private fun setupDataBinding() {
@@ -50,8 +62,8 @@ class MainActivity : AppCompatActivity() {
     private fun observeError() {
         viewModel
             .error
-            .observe(this, Observer {
-                showShortToast(it)
+            .observe(this, Observer { error ->
+                error.getContentIfNotHandled()?.let { showShortToast(it) }
             })
     }
 }
