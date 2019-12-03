@@ -10,7 +10,7 @@
 
     <style name="ButtonPrimary" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/bg_primary_button</item>
-        <item name="android:textColor">@color/colorGray</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:elevation">2dp</item>
         <item name="android:minHeight">60dp</item>
     </style>
