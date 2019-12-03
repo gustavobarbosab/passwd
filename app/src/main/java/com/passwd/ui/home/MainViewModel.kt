@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.passwd.common.Event
 import com.passwd.ui.home.model.MainItemPassword
 import com.passwd.ui.home.model.MainMapper
-import io.github.gustavobarbosab.domain.interactor.MainPasswordListUseCase
+import io.github.gustavobarbosab.domain.interactor.passwordList.PasswordListUseCase
 import io.github.gustavobarbosab.domain.model.PasswordModel
 
 @SuppressLint("CheckResult")
-class MainViewModel(private val mainUseCase: MainPasswordListUseCase,
+class MainViewModel(private val useCase: PasswordListUseCase,
                     private val mapper: MainMapper) : ViewModel() {
 
     private val _passwordList: MutableLiveData<List<MainItemPassword>> = MutableLiveData()
@@ -27,7 +27,7 @@ class MainViewModel(private val mainUseCase: MainPasswordListUseCase,
         get() = _error
 
     fun fetchPasswords(force: Boolean) {
-        mainUseCase
+        useCase
             .onFetchPasswords(force)
             .subscribe(this::onSuccess, this::onError)
     }
@@ -45,7 +45,7 @@ class MainViewModel(private val mainUseCase: MainPasswordListUseCase,
     }
 
     override fun onCleared() {
-        mainUseCase.disposeAll()
+        useCase.disposeAll()
         super.onCleared()
     }
 }

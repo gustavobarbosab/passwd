@@ -4,7 +4,8 @@ import com.passwd.ui.home.MainActivity
 import com.passwd.ui.home.MainRecyclerAdapter
 import com.passwd.ui.home.MainViewModel
 import com.passwd.ui.home.model.MainMapper
-import io.github.gustavobarbosab.domain.interactor.MainPasswordListUseCase
+import io.github.gustavobarbosab.domain.interactor.passwordList.PasswordListUseCase
+import io.github.gustavobarbosab.domain.interactor.passwordList.PasswordListUseCaseImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -15,7 +16,7 @@ object MainModule {
             viewModel { MainViewModel(get(), get()) }
             scoped { MainRecyclerAdapter() }
             factory { MainMapper() }
-            factory { MainPasswordListUseCase(get()) }
+            factory<PasswordListUseCase> { PasswordListUseCaseImpl(get()) }
         }
     }
 }
