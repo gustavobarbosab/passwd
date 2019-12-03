@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- region BASE -->
+    <dimen name="base_margin">16dp</dimen>
+    <!-- endregion -->
+
+    <!--  region TEXT  -->
+    <dimen name="textTiny">12sp</dimen>
+    <dimen name="textSmall">14sp</dimen>
+    <dimen name="textMedium">16sp</dimen>
+    <dimen name="textLarge">18sp</dimen>
+    <!--endregion-->
+</resources>
