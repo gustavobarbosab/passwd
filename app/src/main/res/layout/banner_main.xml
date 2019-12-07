@@ -44,7 +44,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.passwd.common.ToolbarPSWD
+        <com.passwd.common.widget.ToolbarPSWD
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
             app:layout_collapseMode="pin"

@@ -1,4 +1,4 @@
-package com.passwd.common
+package com.passwd.common.widget
 
 import android.content.Context
 import android.text.TextUtils
@@ -29,10 +29,10 @@ class ToolbarPSWD @JvmOverloads constructor(
         attrs?.let { attributes ->
             val typedArray = context
                 .theme
-                .obtainStyledAttributes(attributes, R.styleable.passwd, 0, 0)
+                .obtainStyledAttributes(attributes, R.styleable.passwdToolbar, 0, 0)
 
             try {
-                val text = typedArray.getString(R.styleable.passwd_toolbarTitle)
+                val text = typedArray.getString(R.styleable.passwdToolbar_toolbarTitle)
                 if (!TextUtils.isEmpty(text)) {
                     setTitleToolbar(text!!)
                 }
@@ -50,6 +50,7 @@ class ToolbarPSWD @JvmOverloads constructor(
 
     fun setTitleToolbar(title: String) {
         textTitle.text = title
+
     }
 
     fun setTitleToolbar(title: Int) {
