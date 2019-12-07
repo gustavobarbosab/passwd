@@ -20,21 +20,7 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
             arrayOf(R.color.colorAccent,
                 R.color.colorDark,
                 R.color.colorGray,
-                R.color.colorAccent,
-                R.color.colorDark,
-                R.color.colorGray,
-                R.color.colorAccent,
-                R.color.colorDark,
-                R.color.colorGray,
-                R.color.colorAccent,
-                R.color.colorDark,
-                R.color.colorGray,
-                R.color.colorAccent,
-                R.color.colorDark,
-                R.color.colorGray,
-                R.color.colorAccent,
-                R.color.colorDark,
-                R.color.colorGray)
+                R.color.colorAccent)
         )
     }
 }
