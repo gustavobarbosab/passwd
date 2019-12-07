@@ -1,57 +1,103 @@
 package com.passwd.common.widget.colorselector
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
+import android.graphics.drawable.StateListDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.HorizontalScrollView
-import androidx.appcompat.widget.LinearLayoutCompat
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.passwd.R
 import com.passwd.common.extension.toPx
 
 class ColorSelector @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : HorizontalScrollView(context, attrs, defStyleAttr) {
 
-    var containerLL: LinearLayoutCompat = LinearLayoutCompat(context)
-        .apply {
-            orientation = LinearLayoutCompat.HORIZONTAL
-            layoutParams = LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, LinearLayoutCompat.LayoutParams.MATCH_PARENT)
+    private var groupContainer: RadioGroup =
+        RadioGroup(context).apply {
+            orientation = RadioGroup.HORIZONTAL
+            layoutParams = RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.MATCH_PARENT)
         }
 
     init {
-        this.addView(containerLL)
+        this.addView(groupContainer)
     }
 
     fun setupColorList(colors: Array<Int>) {
         val params = createItemLayoutParams()
 
         colors.forEach {
-            val itemView = createColorItemView(it)
-            containerLL.addView(itemView, params)
+            val itemView = createItemView(it)
+            groupContainer.addView(itemView, params)
         }
     }
 
-    private fun createItemLayoutParams(): LinearLayoutCompat.LayoutParams {
-        val size = context.toPx(25F).toInt()
-        val margin = context.toPx(2F).toInt()
+    private fun createItemLayoutParams(): RadioGroup.LayoutParams {
+        val size = context.toPx(ITEM_VIEW_SIZE).toInt()
+        val horizontalMargin = context.toPx(HORIZONTAL_MARGIN).toInt()
 
-        val params = LinearLayoutCompat.LayoutParams(size, size)
-        params.setMargins(margin, 0, margin, 0)
+        val params = RadioGroup.LayoutParams(size, size)
+        params.setMargins(horizontalMargin, VERTICAL_MARGIN, horizontalMargin, VERTICAL_MARGIN)
         return params
     }
 
-    private fun createColorItemView(color: Int): View {
-        val colorItem = View(context)
-        colorItem.background = getDrawableColor(color)
-        return colorItem
+    private fun createItemView(color: Int): View =
+        RadioButton(context).apply {
+            setButtonDrawable(android.R.color.transparent)
+            background = getItemBackground(color)
+            setOnClickListener { onItemClicked(convertColorToHex(color)) }
+        }
+
+    private fun getItemBackground(colorView: Int): Drawable {
+        val default = getDefaultItemColor(colorView)
+        val selected = getSelectedItemColor(colorView)
+
+        return createStateSelector(default, selected!!)
     }
 
-    private fun getDrawableColor(colorView: Int): Drawable {
+    private fun getDefaultItemColor(colorView: Int): Drawable {
         val array = IntArray(2)
         array[0] = ContextCompat.getColor(context, colorView)
         array[1] = ContextCompat.getColor(context, colorView)
+
         return GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, array).apply {
             shape = GradientDrawable.OVAL
         }
+    }
+
+    private fun getSelectedItemColor(colorView: Int): Drawable? =
+        ContextCompat.getDrawable(context, R.drawable.ic_selected)?.apply {
+            setTint(ContextCompat.getColor(context, colorView))
+        }
+
+    private fun createStateSelector(default: Drawable, checked: Drawable): StateListDrawable =
+        StateListDrawable().apply {
+            setExitFadeDuration(ANIMATION_DURATION)
+            addState(intArrayOf(android.R.attr.state_pressed), getRippleDrawableClick(default))
+            addState(intArrayOf(android.R.attr.state_checked), checked)
+            addState(intArrayOf(), default)
+        }
+
+    private fun getRippleDrawableClick(backgroundDrawable: Drawable?): RippleDrawable = RippleDrawable(getPressedState(), backgroundDrawable, null)
+
+    private fun getPressedState(): ColorStateList = ColorStateList(arrayOf(intArrayOf(android.R.attr.state_pressed)), intArrayOf(Color.GRAY))
+
+    private fun onItemClicked(color: String) {
+        Toast.makeText(context, color, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun convertColorToHex(color: Int) = "#${Integer.toHexString(ContextCompat.getColor(context, color) and 0x00ffffff)}"
+
+    companion object {
+        const val ANIMATION_DURATION = 200
+        const val VERTICAL_MARGIN = 0
+        const val HORIZONTAL_MARGIN = 2f
+        const val ITEM_VIEW_SIZE = 25f
     }
 }
