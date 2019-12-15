@@ -6,6 +6,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-fun <T> Single<T>.workThread() = this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-fun <T> Maybe<T>.workThread() = this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-fun Completable.workThread() = this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+fun <T> Single<T>.workIOThread() = this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+fun <T> Maybe<T>.workIOThread() = this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+fun Completable.workIOThread() = this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

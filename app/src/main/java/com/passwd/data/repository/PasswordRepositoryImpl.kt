@@ -1,6 +1,6 @@
 package com.passwd.data.repository
 
-import com.passwd.common.extension.workThread
+import com.passwd.common.extension.workIOThread
 import io.github.gustavobarbosab.domain.model.PasswordModel
 import io.github.gustavobarbosab.domain.repository.PasswordRepository
 import io.github.gustavobarbosab.domain.source.PasswordDataSource
@@ -15,7 +15,7 @@ class PasswordRepositoryImpl(private val localDataSource: PasswordDataSource) : 
         if (force || passwordCache.isEmpty()) {
             return localDataSource
                 .getPasswords()
-                .workThread()
+                .workIOThread()
                 .doOnSuccess { updateList(it) }
         }
 
@@ -25,19 +25,19 @@ class PasswordRepositoryImpl(private val localDataSource: PasswordDataSource) : 
     override fun savePassword(password: PasswordModel): Single<List<PasswordModel>> =
         localDataSource
             .savePassword(password)
-            .workThread()
+            .workIOThread()
             .doOnSuccess { updateList(it) }
 
     override fun deletePassword(password: PasswordModel): Completable =
         localDataSource
             .deletePassword(password)
-            .workThread()
+            .workIOThread()
             .doOnComplete { passwordCache.remove(password) }
 
     override fun editPassword(password: PasswordModel): Completable =
         localDataSource
             .editPassword(password)
-            .workThread()
+            .workIOThread()
             .doOnComplete { passwordCache.fill(password) }
 
     private fun updateList(passwords: List<PasswordModel>) {

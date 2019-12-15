@@ -12,12 +12,14 @@ import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.passwd.R
+import com.passwd.common.extension.convertColorToHex
 import com.passwd.common.extension.toPx
 
 class ColorSelector @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : HorizontalScrollView(context, attrs, defStyleAttr) {
+
+    var colorSelectedClickListener: (color: String) -> Unit = {}
 
     private var groupContainer: RadioGroup =
         RadioGroup(context).apply {
@@ -36,6 +38,16 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
             val itemView = createItemView(it)
             groupContainer.addView(itemView, params)
         }
+
+        selectFirstColor(colors.firstOrNull())
+    }
+
+    private fun selectFirstColor(firstColor: Int?) {
+        firstColor?.let {
+            val firstColorHex = convertColorToHex(it)
+            colorSelectedClickListener(firstColorHex)
+            (groupContainer.getChildAt(0) as RadioButton).isChecked = true
+        }
     }
 
     private fun createItemLayoutParams(): RadioGroup.LayoutParams {
@@ -51,7 +63,7 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
         RadioButton(context).apply {
             setButtonDrawable(android.R.color.transparent)
             background = getItemBackground(color)
-            setOnClickListener { onItemClicked(convertColorToHex(color)) }
+            setOnClickListener { colorSelectedClickListener(convertColorToHex(color)) }
         }
 
     private fun getItemBackground(colorView: Int): Drawable {
@@ -88,11 +100,7 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private fun getPressedState(): ColorStateList = ColorStateList(arrayOf(intArrayOf(android.R.attr.state_pressed)), intArrayOf(Color.GRAY))
 
-    private fun onItemClicked(color: String) {
-        Toast.makeText(context, color, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun convertColorToHex(color: Int) = "#${Integer.toHexString(ContextCompat.getColor(context, color) and 0x00ffffff)}"
+    private fun convertColorToHex(color: Int) = context.convertColorToHex(color)
 
     companion object {
         const val ANIMATION_DURATION = 200

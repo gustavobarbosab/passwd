@@ -10,6 +10,11 @@ import kotlinx.android.synthetic.main.dialog_create_password.colorSelector
 
 class CreatePasswordDialog : BottomSheetDialogFragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_create_password, container, false)
     }
