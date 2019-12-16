@@ -22,4 +22,9 @@
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    <style name="TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+        <item name="hintTextColor">@color/colorPrimary</item>
+        <item name="boxStrokeColor">@drawable/bg_box_text_input_color</item>
+    </style>
 </resources>

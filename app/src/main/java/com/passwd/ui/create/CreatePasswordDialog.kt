@@ -1,5 +1,6 @@
 package com.passwd.ui.create
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class CreatePasswordDialog : BottomSheetDialogFragment() {
 
     private val viewModel: CreatePasswordViewModel by currentScope.viewModel(this)
+    private var parentListener: CreatePasswordListener? = null
     lateinit var binding: DialogCreatePasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,13 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
         setupListeners()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is CreatePasswordListener) {
+            parentListener = context
+        }
+    }
+
     private fun setupListeners() {
         closeButton.setOnClickListener { this.dismiss() }
     }
@@ -56,6 +65,7 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
             .observe(this, Observer {
                 it?.getContentIfNotHandled()?.let {
                     this.dismiss()
+                    parentListener?.passwordSuccessfullyCreated()
                     Toast.makeText(context, "Senha salva com sucesso!", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -83,4 +93,9 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
     private fun onColorSelected(color: String) {
         viewModel.colorSelected = color
     }
+
+    interface CreatePasswordListener {
+        fun passwordSuccessfullyCreated()
+    }
 }
+

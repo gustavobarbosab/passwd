@@ -13,11 +13,11 @@ import kotlinx.android.synthetic.main.activity_main.recyclerView
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordListener {
 
-    lateinit var binding: ActivityMainBinding
-    val viewModel: MainViewModel by currentScope.viewModel(this)
-    val adapter: MainRecyclerAdapter by currentScope.inject()
+    private lateinit var binding: ActivityMainBinding
+    private val adapter: MainRecyclerAdapter by currentScope.inject()
+    private val viewModel: MainViewModel by currentScope.viewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             .showCreatePasswordDialog
             .observe(this, Observer {
                 it.getContentIfNotHandled()?.let {
-                    CreatePasswordDialog().show(supportFragmentManager, "adasda")
+                    CreatePasswordDialog().show(supportFragmentManager, PASSWORD_DIALOG)
                 }
             })
     }
@@ -65,5 +65,13 @@ class MainActivity : AppCompatActivity() {
             .observe(this, Observer { error ->
                 error.getContentIfNotHandled()?.let { showShortToast(it) }
             })
+    }
+
+    override fun passwordSuccessfullyCreated() {
+        viewModel.fetchPasswords(true)
+    }
+
+    companion object {
+        const val PASSWORD_DIALOG = "PASSWORD_DIALOG"
     }
 }
