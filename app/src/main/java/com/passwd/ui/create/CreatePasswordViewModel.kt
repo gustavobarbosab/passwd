@@ -10,7 +10,7 @@ import io.github.gustavobarbosab.domain.model.PasswordModel
 import io.github.gustavobarbosab.domain.repository.PasswordRepository
 import io.reactivex.disposables.CompositeDisposable
 
-class CreatePasswordViewModel(val passwordRepository: PasswordRepository) : ViewModel() {
+class CreatePasswordViewModel(private val passwordRepository: PasswordRepository) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
