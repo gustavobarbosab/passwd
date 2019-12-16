@@ -4,5 +4,5 @@ data class MainItemPassword(
     val id: Long?,
     val name: String,
     val password: String,
-    val color: Int
+    val color: String
 )
