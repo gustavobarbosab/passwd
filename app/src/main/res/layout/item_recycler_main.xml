@@ -20,7 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="16dp"
             android:minHeight="120dp"
             android:orientation="vertical">
 
@@ -52,20 +52,20 @@
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/appCompatCheckBox"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="22dp"
                 android:checked="true"
                 android:button="@android:color/transparent"
                 android:background="@drawable/bg_eye_password_button"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/passwordColor"
                 app:layout_constraintTop_toTopOf="parent"
                 app:passwordText="@{textView2}" />
 
             <View
                 android:id="@+id/passwordColor"
-                android:layout_width="5dp"
+                android:layout_width="8dp"
                 android:layout_height="0dp"
                 app:viewBackground="@{fields.color}"
                 android:background="@color/colorGray"
