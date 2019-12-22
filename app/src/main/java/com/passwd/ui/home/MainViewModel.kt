@@ -10,7 +10,6 @@ import com.passwd.ui.home.model.MainMapper
 import io.github.gustavobarbosab.domain.interactor.passwordList.PasswordListUseCase
 import io.github.gustavobarbosab.domain.model.PasswordModel
 
-@SuppressLint("CheckResult")
 class MainViewModel(private val useCase: PasswordListUseCase,
                     private val mapper: MainMapper) : ViewModel() {
 
@@ -26,10 +25,11 @@ class MainViewModel(private val useCase: PasswordListUseCase,
     val error: LiveData<Event<String>>
         get() = _error
 
+    @SuppressLint("CheckResult")
     fun fetchPasswords(force: Boolean) {
         useCase
-            .onFetchPasswords(force)
-            .subscribe(this::onSuccess, this::onError)
+                .onFetchPasswords(force)
+                .subscribe(this::onSuccess, this::onError)
     }
 
     fun createPassword() {
