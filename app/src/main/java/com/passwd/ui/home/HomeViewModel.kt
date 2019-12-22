@@ -5,16 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.passwd.common.Event
-import com.passwd.ui.home.model.MainItemPassword
-import com.passwd.ui.home.model.MainMapper
+import com.passwd.ui.home.model.HomeBanner
+import com.passwd.ui.home.model.HomeItemPassword
+import com.passwd.ui.home.model.HomeMapper
 import io.github.gustavobarbosab.domain.interactor.passwordList.PasswordListUseCase
 import io.github.gustavobarbosab.domain.model.PasswordModel
 
-class MainViewModel(private val useCase: PasswordListUseCase,
-                    private val mapper: MainMapper) : ViewModel() {
+class HomeViewModel(private val useCase: PasswordListUseCase,
+                    private val mapper: HomeMapper) : ViewModel() {
 
-    private val _passwordList: MutableLiveData<List<MainItemPassword>> = MutableLiveData()
-    val passwordList: LiveData<List<MainItemPassword>>
+    private val _passwordList: MutableLiveData<List<HomeItemPassword>> = MutableLiveData()
+    val passwordList: LiveData<List<HomeItemPassword>>
         get() = _passwordList
 
     private val _showCreatePasswordDialog: MutableLiveData<Event<Unit>> = MutableLiveData()
@@ -24,6 +25,13 @@ class MainViewModel(private val useCase: PasswordListUseCase,
     private val _error: MutableLiveData<Event<String>> = MutableLiveData()
     val error: LiveData<Event<String>>
         get() = _error
+
+    val banner: HomeBanner = HomeBanner()
+
+    init {
+        // TODO sera alterado quando salvarmos os dados do usuario
+        banner.username = "Gustavo"
+    }
 
     @SuppressLint("CheckResult")
     fun fetchPasswords(force: Boolean) {
@@ -38,6 +46,7 @@ class MainViewModel(private val useCase: PasswordListUseCase,
 
     private fun onSuccess(passwords: List<PasswordModel>) {
         _passwordList.value = mapper.mapToItemList(passwords)
+        banner.passwordCount = passwords.size
     }
 
     private fun onError(error: Throwable) {

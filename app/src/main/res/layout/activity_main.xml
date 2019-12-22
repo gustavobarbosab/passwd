@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.passwd.ui.home.MainViewModel" />
+            type="com.passwd.ui.home.HomeViewModel" />
 
     </data>
 
@@ -16,9 +16,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
-        tools:context=".ui.home.MainActivity">
+        tools:context=".ui.home.HomeActivity">
 
-        <include layout="@layout/banner_main" />
+        <include layout="@layout/banner_main"
+            app:fields="@{viewModel.banner}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

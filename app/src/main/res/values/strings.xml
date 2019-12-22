@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">PASSWD</string>
-    <string name="teste_teste">Teste Gustavo</string>
 
     <!-- region BASE -->
     <string name="add">Adicionar</string>
     <string name="cancel">Cancelar</string>
+    <!-- endregion -->
+
+    <!-- region BASE -->
+    <string name="home_banner_username_message">Olá %s,</string>
+    <string name="home_banner_password_count">você tem %d senhas salvas</string>
     <!-- endregion -->
 
     <!--  region CREATE PASSWORD  -->

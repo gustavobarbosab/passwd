@@ -7,7 +7,7 @@
 
         <variable
             name="fields"
-            type="com.passwd.ui.home.model.MainItemPassword" />
+            type="com.passwd.ui.home.model.HomeItemPassword" />
     </data>
 
     <androidx.cardview.widget.CardView

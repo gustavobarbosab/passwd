@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.passwd.R
 
-class MainBinding {
+class HomeBinding {
 
     companion object {
         @JvmStatic

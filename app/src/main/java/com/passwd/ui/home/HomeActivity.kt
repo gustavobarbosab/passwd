@@ -13,11 +13,11 @@ import kotlinx.android.synthetic.main.activity_main.recyclerView
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordListener {
+class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordListener {
 
     private lateinit var binding: ActivityMainBinding
-    private val adapter: MainRecyclerAdapter by currentScope.inject()
-    private val viewModel: MainViewModel by currentScope.viewModel(this)
+    private val adapter: HomeRecyclerAdapter by currentScope.inject()
+    private val viewModel: HomeViewModel by currentScope.viewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
             .observe(this, Observer {
                 adapter.setPasswords(it)
                 adapter.notifyDataSetChanged()
-                showShortToast("Lista carregada!")
             })
     }
 

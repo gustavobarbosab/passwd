@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.passwd.databinding.ItemRecyclerMainBinding
-import com.passwd.ui.home.model.MainItemPassword
+import com.passwd.ui.home.model.HomeItemPassword
 
-class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>() {
+class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
 
-    private var passwords: MutableList<MainItemPassword> = mutableListOf()
+    private var passwords: MutableList<HomeItemPassword> = mutableListOf()
 
-    fun setPasswords(passwords: List<MainItemPassword>) {
+    fun setPasswords(passwords: List<HomeItemPassword>) {
         with(this.passwords) {
             clear()
             addAll(passwords)
@@ -32,7 +32,7 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>
 
     inner class ViewHolder(private val binding: ItemRecyclerMainBinding)
         : RecyclerView.ViewHolder(binding.root) {
-        fun setupFields(password: MainItemPassword) {
+        fun setupFields(password: HomeItemPassword) {
             binding.fields = password
         }
     }
