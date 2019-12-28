@@ -13,19 +13,21 @@ import android.widget.HorizontalScrollView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.passwd.R
 import com.passwd.common.extension.convertColorToHex
 import com.passwd.common.extension.toPx
+
 
 class ColorSelector @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : HorizontalScrollView(context, attrs, defStyleAttr) {
 
     var colorSelectedClickListener: (color: String) -> Unit = {}
 
     private var groupContainer: RadioGroup =
-        RadioGroup(context).apply {
-            orientation = RadioGroup.HORIZONTAL
-            layoutParams = RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.MATCH_PARENT)
-        }
+            RadioGroup(context).apply {
+                orientation = RadioGroup.HORIZONTAL
+                layoutParams = RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.MATCH_PARENT)
+            }
 
     init {
         this.addView(groupContainer)
@@ -60,11 +62,11 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     private fun createItemView(color: Int): View =
-        RadioButton(context).apply {
-            setButtonDrawable(android.R.color.transparent)
-            background = getItemBackground(color)
-            setOnClickListener { colorSelectedClickListener(convertColorToHex(color)) }
-        }
+            RadioButton(context).apply {
+                setButtonDrawable(android.R.color.transparent)
+                background = getItemBackground(color)
+                setOnClickListener { colorSelectedClickListener(convertColorToHex(color)) }
+            }
 
     private fun getItemBackground(colorView: Int): Drawable {
         val default = getDefaultItemColor(colorView)
@@ -84,17 +86,21 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     private fun getSelectedItemColor(colorView: Int): Drawable? =
-        ContextCompat.getDrawable(context, R.drawable.ic_selected)?.apply {
-            setTint(ContextCompat.getColor(context, colorView))
-        }
+            ContextCompat
+                    .getDrawable(context, R.drawable.ic_selected)
+                    ?.mutate()
+                    ?.apply {
+                        val color = ContextCompat.getColor(context, colorView)
+                        DrawableCompat.setTint(this, color)
+                    }
 
     private fun createStateSelector(default: Drawable, checked: Drawable): StateListDrawable =
-        StateListDrawable().apply {
-            setExitFadeDuration(ANIMATION_DURATION)
-            addState(intArrayOf(android.R.attr.state_pressed), getRippleDrawableClick(default))
-            addState(intArrayOf(android.R.attr.state_checked), checked)
-            addState(intArrayOf(), default)
-        }
+            StateListDrawable().apply {
+                setExitFadeDuration(ANIMATION_DURATION)
+                addState(intArrayOf(android.R.attr.state_pressed), getRippleDrawableClick(default))
+                addState(intArrayOf(android.R.attr.state_checked), checked)
+                addState(intArrayOf(), default)
+            }
 
     private fun getRippleDrawableClick(backgroundDrawable: Drawable?): RippleDrawable = RippleDrawable(getPressedState(), backgroundDrawable, null)
 
