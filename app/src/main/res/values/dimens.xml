@@ -2,6 +2,8 @@
 <resources>
     <!-- region BASE -->
     <dimen name="base_margin">16dp</dimen>
+    <dimen name="base_margin_small">8dp</dimen>
+    <dimen name="base_margin_large">24dp</dimen>
     <!-- endregion -->
 
     <!--  region TEXT  -->

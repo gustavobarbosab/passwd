@@ -17,7 +17,6 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.passwd.R
 import com.passwd.common.extension.toPx
 
-
 class ColorSelector @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : HorizontalScrollView(context, attrs, defStyleAttr) {
 
     var colorSelectedClickListener: (color: Int) -> Unit = {}
