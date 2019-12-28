@@ -26,7 +26,7 @@ class CreatePasswordViewModel(private val passwordRepository: PasswordRepository
     var passwordName: ObservableField<String> = ObservableField()
     var passwordKey: ObservableField<String> = ObservableField()
 
-    lateinit var colorSelected: String
+    var colorSelected: Int = -1
 
     fun savePassword() {
         val isKeyValid = validatePasswordKey()

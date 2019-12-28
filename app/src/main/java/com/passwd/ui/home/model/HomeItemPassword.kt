@@ -4,5 +4,5 @@ data class HomeItemPassword(
     val id: Long?,
     val name: String,
     val password: String,
-    val color: String
+    val color: Int
 )

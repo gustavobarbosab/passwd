@@ -5,6 +5,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.passwd.R
 
@@ -24,13 +25,8 @@ class HomeBinding {
         @JvmStatic
         @BindingAdapter("viewBackground")
         fun viewBackground(view: View,
-                           color: String) {
-            val colorParsed = try {
-                Color.parseColor(color)
-            } catch (e: Exception) {
-                R.color.colorGray
-            }
-            view.setBackgroundColor(colorParsed)
+                           color: Int) {
+            view.setBackgroundColor(color)
         }
     }
 }

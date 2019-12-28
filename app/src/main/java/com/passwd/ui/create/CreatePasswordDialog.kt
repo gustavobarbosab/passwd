@@ -84,13 +84,13 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
             R.color.colorAccent,
             R.color.colorDark,
             R.color.colorGray,
-            R.color.colorAccent
+            R.color.colorGrayLight
         )
         colorSelector.colorSelectedClickListener = this::onColorSelected
         colorSelector.setupColorList(colors)
     }
 
-    private fun onColorSelected(color: String) {
+    private fun onColorSelected(color: Int) {
         viewModel.colorSelected = color
     }
 

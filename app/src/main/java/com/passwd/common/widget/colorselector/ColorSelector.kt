@@ -15,13 +15,12 @@ import android.widget.RadioGroup
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.passwd.R
-import com.passwd.common.extension.convertColorToHex
 import com.passwd.common.extension.toPx
 
 
 class ColorSelector @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : HorizontalScrollView(context, attrs, defStyleAttr) {
 
-    var colorSelectedClickListener: (color: String) -> Unit = {}
+    var colorSelectedClickListener: (color: Int) -> Unit = {}
 
     private var groupContainer: RadioGroup =
             RadioGroup(context).apply {
@@ -46,8 +45,7 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private fun selectFirstColor(firstColor: Int?) {
         firstColor?.let {
-            val firstColorHex = convertColorToHex(it)
-            colorSelectedClickListener(firstColorHex)
+            colorSelectedClickListener(ContextCompat.getColor(context,firstColor))
             (groupContainer.getChildAt(0) as RadioButton).isChecked = true
         }
     }
@@ -65,7 +63,7 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
             RadioButton(context).apply {
                 setButtonDrawable(android.R.color.transparent)
                 background = getItemBackground(color)
-                setOnClickListener { colorSelectedClickListener(convertColorToHex(color)) }
+                setOnClickListener { colorSelectedClickListener(ContextCompat.getColor(context,color)) }
             }
 
     private fun getItemBackground(colorView: Int): Drawable {
@@ -105,8 +103,6 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
     private fun getRippleDrawableClick(backgroundDrawable: Drawable?): RippleDrawable = RippleDrawable(getPressedState(), backgroundDrawable, null)
 
     private fun getPressedState(): ColorStateList = ColorStateList(arrayOf(intArrayOf(android.R.attr.state_pressed)), intArrayOf(Color.GRAY))
-
-    private fun convertColorToHex(color: Int) = context.convertColorToHex(color)
 
     companion object {
         const val ANIMATION_DURATION = 200
