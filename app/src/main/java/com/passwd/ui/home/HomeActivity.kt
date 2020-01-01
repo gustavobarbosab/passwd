@@ -23,8 +23,8 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
     private val viewModel: HomeViewModel by currentScope.viewModel(this)
 
     private val rightButtonRecycler = ButtonProperties(
-            R.color.colorAccent,
-            R.string.home_list_button_right) { pos -> showShortToast("Right $pos") }
+            R.color.colorDelete,
+            R.string.home_list_button_right) { position -> viewModel.deletePassword(adapter.getPassword(position)) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

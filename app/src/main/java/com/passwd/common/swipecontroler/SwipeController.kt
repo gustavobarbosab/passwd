@@ -140,9 +140,14 @@ class SwipeController(
                         ButtonState.LeftVisible -> properties.leftButton?.action?.invoke(viewHolder.adapterPosition)
                         ButtonState.RightVisible -> properties.rightButton?.action?.invoke(viewHolder.adapterPosition)
                     }
+                } else {
+                    clearView(recyclerView,viewHolder)
                 }
+
                 buttonShowedState = ButtonState.Gone
                 currentItemViewHolder = null
+            } else {
+                clearView(recyclerView,viewHolder)
             }
             false
         }
@@ -223,7 +228,7 @@ class SwipeController(
 
     companion object {
         private const val buttonWidth = 260f
-        const val DEFAULT_MARGIN = 20F
+        const val DEFAULT_MARGIN = 10F
     }
 }
 

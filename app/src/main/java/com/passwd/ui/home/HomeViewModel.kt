@@ -58,4 +58,11 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
         useCase.disposeAll()
         super.onCleared()
     }
+
+    @SuppressLint("CheckResult")
+    fun deletePassword(password: HomeItemPassword) {
+        useCase
+                .onDeletePassword(mapper.transform(password))
+                .subscribe { fetchPasswords(true) }
+    }
 }
