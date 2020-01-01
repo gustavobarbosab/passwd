@@ -22,13 +22,9 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
     private val adapter: HomeRecyclerAdapter by currentScope.inject()
     private val viewModel: HomeViewModel by currentScope.viewModel(this)
 
-    private val leftButtonRecycler = ButtonProperties(
-            R.color.colorGreen,
-            R.string.home_list_button_left) { pos-> showShortToast("Left $pos")}
-
     private val rightButtonRecycler = ButtonProperties(
-            R.color.colorRed,
-            R.string.home_list_button_right) { pos-> showShortToast("Right $pos")}
+            R.color.colorAccent,
+            R.string.home_list_button_right) { pos -> showShortToast("Right $pos") }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +38,7 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
     private fun setupRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter
-        binding.swipeController = SwipeController(SwipeControllerProperties(leftButtonRecycler, rightButtonRecycler))
+        binding.swipeController = SwipeController(SwipeControllerProperties(rightButton = rightButtonRecycler))
     }
 
     private fun observeCreatePassword() {
@@ -56,7 +52,7 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
     }
 
     private fun setupDataBinding() {
-        binding = DataBindingUtil.setContentView(this, com.passwd.R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
     }
 

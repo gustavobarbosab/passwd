@@ -4,8 +4,8 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 
 data class SwipeControllerProperties(
-        val leftButton: ButtonProperties,
-        val rightButton: ButtonProperties
+        val leftButton: ButtonProperties? = null,
+        val rightButton: ButtonProperties? = null
 )
 
 data class ButtonProperties(

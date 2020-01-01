@@ -29,7 +29,19 @@ class SwipeController(
     private var currentItemViewHolder: RecyclerView.ViewHolder? = null
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int =
-            makeMovementFlags(0, LEFT or RIGHT)
+            makeMovementFlags(0, getMovement())
+
+    private fun getMovement(): Int {
+        val rightMovement = properties.leftButton != null
+        val leftMovement = properties.rightButton != null
+
+        return when {
+            leftMovement and rightMovement -> LEFT or RIGHT
+            leftMovement -> LEFT
+            rightMovement -> RIGHT
+            else -> -1
+        }
+    }
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder) = false
 
@@ -125,8 +137,8 @@ class SwipeController(
 
                 if (buttonInstance?.contains(event.x, event.y) == true) {
                     when (buttonShowedState) {
-                        ButtonState.LeftVisible -> properties.leftButton.action.invoke(viewHolder.adapterPosition)
-                        ButtonState.RightVisible -> properties.rightButton.action.invoke(viewHolder.adapterPosition)
+                        ButtonState.LeftVisible -> properties.leftButton?.action?.invoke(viewHolder.adapterPosition)
+                        ButtonState.RightVisible -> properties.rightButton?.action?.invoke(viewHolder.adapterPosition)
                     }
                 }
                 buttonShowedState = ButtonState.Gone
@@ -147,39 +159,46 @@ class SwipeController(
         val corners = 16f
 
         val itemView = viewHolder.itemView
+        val context = viewHolder.itemView.context
         val p = Paint()
+
+        var leftButton: RectF? = null
+        var rightButton: RectF? = null
 
         val top = itemView.top.toFloat() + DEFAULT_MARGIN
         val bottom = itemView.bottom.toFloat() - DEFAULT_MARGIN
 
-        val leftToLeftButton = itemView.left.toFloat() + DEFAULT_MARGIN
-        val rightToLeftButton = itemView.left + buttonWidthWithoutPadding
+        properties.leftButton?.let { button ->
+            val rightToLeftButton = itemView.left + buttonWidthWithoutPadding
+            val leftToLeftButton = itemView.left.toFloat() + DEFAULT_MARGIN
 
-        val rightToRightButton = itemView.right.toFloat() - DEFAULT_MARGIN
-        val leftToRightButton = itemView.right - buttonWidthWithoutPadding
+            leftButton = RectF(
+                    leftToLeftButton,
+                    top,
+                    rightToLeftButton,
+                    bottom
+            )
 
-        val leftButton = RectF(
-                leftToLeftButton,
-                top,
-                rightToLeftButton,
-                bottom
-        )
-        val context = viewHolder.itemView.context
+            p.color = ContextCompat.getColor(context, button.color)
+            c.drawRoundRect(leftButton!!, corners, corners, p)
+            drawText(context.getString(button.text), c, leftButton!!, p)
+        }
 
-        p.color = ContextCompat.getColor(context, properties.leftButton.color)
-        c.drawRoundRect(leftButton, corners, corners, p)
-        drawText(context.getString(properties.leftButton.text), c, leftButton, p)
+        properties.rightButton?.let { button ->
+            val rightToRightButton = itemView.right.toFloat() - DEFAULT_MARGIN
+            val leftToRightButton = itemView.right - buttonWidthWithoutPadding
 
-        val rightButton = RectF(
-                leftToRightButton,
-                top,
-                rightToRightButton,
-                bottom
-        )
+            rightButton = RectF(
+                    leftToRightButton,
+                    top,
+                    rightToRightButton,
+                    bottom
+            )
 
-        p.color = ContextCompat.getColor(context, properties.rightButton.color)
-        c.drawRoundRect(rightButton, corners, corners, p)
-        drawText(context.getString(properties.rightButton.text), c, rightButton, p)
+            p.color = ContextCompat.getColor(context, button.color)
+            c.drawRoundRect(rightButton!!, corners, corners, p)
+            drawText(context.getString(button.text), c, rightButton!!, p)
+        }
 
         buttonInstance = null
         when (buttonShowedState) {
@@ -207,3 +226,4 @@ class SwipeController(
         const val DEFAULT_MARGIN = 20F
     }
 }
+
