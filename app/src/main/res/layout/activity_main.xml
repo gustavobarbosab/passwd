@@ -8,6 +8,10 @@
             name="viewModel"
             type="com.passwd.ui.home.HomeViewModel" />
 
+        <variable
+            name="swipeController"
+            type="com.passwd.common.swipecontroler.SwipeController" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,8 +22,9 @@
         android:background="@color/colorPrimaryDark"
         tools:context=".ui.home.HomeActivity">
 
-        <include layout="@layout/banner_main"
-            app:fields="@{viewModel.banner}"/>
+        <include
+            layout="@layout/banner_main"
+            app:fields="@{viewModel.banner}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -39,6 +44,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:addSwipeController="@{swipeController}"
                 tools:itemCount="10"
                 tools:listitem="@layout/item_recycler_main" />
         </androidx.constraintlayout.widget.ConstraintLayout>

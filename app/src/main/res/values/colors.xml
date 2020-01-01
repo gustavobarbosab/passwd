@@ -7,4 +7,6 @@
     <color name="colorGrayDark">#808080</color>
     <color name="colorGray">#B6B6B6</color>
     <color name="colorGrayLight">#CECECE</color>
+    <color name="colorRed">#FFC107</color>
+    <color name="colorGreen">#4CAF50</color>
 </resources>

@@ -31,6 +31,7 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
     init {
         // TODO sera alterado quando salvarmos os dados do usuario
         banner.username = "Gustavo"
+        fetchPasswords(true)
     }
 
     @SuppressLint("CheckResult")

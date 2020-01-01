@@ -17,7 +17,9 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.passwd.R
 import com.passwd.common.extension.toPx
 
-class ColorSelector @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : HorizontalScrollView(context, attrs, defStyleAttr) {
+class ColorSelector
+@JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : HorizontalScrollView(context, attrs, defStyleAttr) {
 
     var colorSelectedClickListener: (color: Int) -> Unit = {}
 
@@ -44,7 +46,7 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private fun selectFirstColor(firstColor: Int?) {
         firstColor?.let {
-            colorSelectedClickListener(ContextCompat.getColor(context,firstColor))
+            colorSelectedClickListener(ContextCompat.getColor(context, firstColor))
             (groupContainer.getChildAt(0) as RadioButton).isChecked = true
         }
     }
@@ -62,7 +64,7 @@ class ColorSelector @JvmOverloads constructor(context: Context, attrs: Attribute
             RadioButton(context).apply {
                 setButtonDrawable(android.R.color.transparent)
                 background = getItemBackground(color)
-                setOnClickListener { colorSelectedClickListener(ContextCompat.getColor(context,color)) }
+                setOnClickListener { colorSelectedClickListener(ContextCompat.getColor(context, color)) }
             }
 
     private fun getItemBackground(colorView: Int): Drawable {
