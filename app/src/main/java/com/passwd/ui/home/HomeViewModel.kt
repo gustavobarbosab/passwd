@@ -45,6 +45,13 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
         _showCreatePasswordDialog.value = Event(Unit)
     }
 
+    @SuppressLint("CheckResult")
+    fun deletePassword(password: HomeItemPassword) {
+        useCase
+                .onDeletePassword(mapper.transform(password))
+                .subscribe { fetchPasswords(true) }
+    }
+
     private fun onSuccess(passwords: List<PasswordModel>) {
         _passwordList.value = mapper.mapToItemList(passwords)
         banner.passwordCount = passwords.size
@@ -57,12 +64,5 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
     override fun onCleared() {
         useCase.disposeAll()
         super.onCleared()
-    }
-
-    @SuppressLint("CheckResult")
-    fun deletePassword(password: HomeItemPassword) {
-        useCase
-                .onDeletePassword(mapper.transform(password))
-                .subscribe { fetchPasswords(true) }
     }
 }
