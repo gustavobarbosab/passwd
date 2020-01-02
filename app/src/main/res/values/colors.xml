@@ -7,8 +7,7 @@
     <color name="colorGrayDark">#808080</color>
     <color name="colorGray">#B6B6B6</color>
     <color name="colorGrayLight">#CECECE</color>
-    <color name="colorDelete">#FF9800</color>
-
+    <color name="colorDelete">#EF5350</color>
 
     <!-- Color Selector -->
     <color name="colorOne">#4BC1FF</color>
