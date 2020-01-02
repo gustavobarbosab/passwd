@@ -1,10 +1,12 @@
 package com.passwd.ui.home
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.passwd.R
 import com.passwd.common.extension.showShortToast
 import com.passwd.common.swipecontroler.ButtonProperties
@@ -26,6 +28,16 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
             R.color.colorDelete,
             R.string.home_list_button_right) { position -> viewModel.deletePassword(adapter.getPassword(position)) }
 
+    private val undoDeleteListener = View.OnClickListener {
+        viewModel.undoDeleteLastPassword()
+    }
+
+    private val deleteSnackBar by lazy {
+        Snackbar.make(homeContainer, R.string.home_snackbar_delete_message, Snackbar.LENGTH_SHORT).apply {
+            setAction(R.string.home_snackbar_undo, undoDeleteListener)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupDataBinding()
@@ -33,12 +45,42 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
         observeList()
         observeError()
         observeCreatePassword()
+        observeViewStates()
     }
 
     private fun setupRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter
         binding.swipeController = SwipeController(SwipeControllerProperties(rightButton = rightButtonRecycler))
+    }
+
+    private fun observeViewStates() {
+        viewModel
+                .viewState
+                .observe(this, Observer {
+                    when (it.getContentIfNotHandled()) {
+                        HomeStates.ShowLoading -> showLoading()
+                        HomeStates.HideLoading -> hideLoading()
+                        HomeStates.DeleteSuccess -> onDeleteSuccess()
+                        HomeStates.FetchSuccess -> onFetchListSuccess()
+                    }
+                })
+    }
+
+    private fun showLoading() {
+
+    }
+
+    private fun hideLoading() {
+
+    }
+
+    private fun onDeleteSuccess() {
+        deleteSnackBar.show()
+    }
+
+    private fun onFetchListSuccess() {
+
     }
 
     private fun observeCreatePassword() {

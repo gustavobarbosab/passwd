@@ -18,6 +18,8 @@
     <string name="create_password_field_name">Apelido</string>
     <string name="create_password_field_password">Senha</string>
     <string name="create_password_title_color_selector">Defina uma cor para a senha</string>
+    <string name="home_snackbar_delete_message">Senha deletada!</string>
+    <string name="home_snackbar_undo">Desfazer</string>
     <!-- endregion -->
 
 </resources>

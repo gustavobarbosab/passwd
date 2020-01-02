@@ -22,6 +22,10 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
     val showCreatePasswordDialog: LiveData<Event<Unit>>
         get() = _showCreatePasswordDialog
 
+    private val _viewState: MutableLiveData<Event<HomeStates>> = MutableLiveData()
+    val viewState: LiveData<Event<HomeStates>>
+        get() = _viewState
+
     private val _error: MutableLiveData<Event<String>> = MutableLiveData()
     val error: LiveData<Event<String>>
         get() = _error
@@ -49,7 +53,15 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
     fun deletePassword(password: HomeItemPassword) {
         useCase
                 .onDeletePassword(mapper.transform(password))
+                .doOnComplete { _viewState.value = Event(HomeStates.DeleteSuccess) }
                 .subscribe { fetchPasswords(true) }
+    }
+
+    @SuppressLint("CheckResult")
+    fun undoDeleteLastPassword() {
+        useCase
+                .undoDelete()
+                .subscribe(this::onSuccess, this::onError)
     }
 
     private fun onSuccess(passwords: List<PasswordModel>) {
