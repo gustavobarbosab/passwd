@@ -57,12 +57,8 @@ class PasswordTextField @JvmOverloads constructor(
 
     private val onEditTextFocus = OnFocusChangeListener { v, hasFocus ->
         if (hasFocus) {
-            clearText(v as AppCompatEditText)
+            (v as AppCompatEditText).text?.clear()
         }
-    }
-
-    private fun clearText(editText: AppCompatEditText) {
-        editText.text?.clear()
     }
 
     private fun emitPassword() {
