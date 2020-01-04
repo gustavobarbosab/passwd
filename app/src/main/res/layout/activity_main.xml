@@ -6,19 +6,26 @@
 
         <variable
             name="viewModel"
-            type="com.passwd.ui.home.MainViewModel" />
+            type="com.passwd.ui.home.HomeViewModel" />
+
+        <variable
+            name="swipeController"
+            type="com.passwd.common.swipecontroler.SwipeController" />
 
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/homeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
-        tools:context=".ui.home.MainActivity">
+        tools:context=".ui.home.HomeActivity">
 
-        <include layout="@layout/banner_main" />
+        <include
+            layout="@layout/banner_main"
+            app:fields="@{viewModel.banner}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,7 +37,15 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:addSwipeController="@{swipeController}"
                 tools:itemCount="10"
                 tools:listitem="@layout/item_recycler_main" />
         </androidx.constraintlayout.widget.ConstraintLayout>

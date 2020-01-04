@@ -10,20 +10,29 @@ class PasswordListUseCaseImpl(private val repository: PasswordRepository) : Pass
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun onFetchPasswords(force: Boolean): Single<List<PasswordModel>> =
-        repository
-            .getPasswords(force)
-            .doOnSubscribe { compositeDisposable.add(it) }
+    private var lastPasswordDeleted: PasswordModel? = null
 
-    override fun onDeletePassword(password: PasswordModel): Completable =
-        repository
-            .deletePassword(password)
-            .doOnSubscribe { compositeDisposable.add(it) }
+    override fun onFetchPasswords(force: Boolean): Single<List<PasswordModel>> =
+            repository
+                    .getPasswords(force)
+                    .doOnSubscribe { compositeDisposable.add(it) }
+
+    override fun onDeletePassword(password: PasswordModel): Completable {
+        lastPasswordDeleted = password
+        return repository
+                .deletePassword(password)
+                .doOnSubscribe { compositeDisposable.add(it) }
+    }
 
     override fun onCreatePassword(password: PasswordModel): Single<List<PasswordModel>> =
-        repository
-            .savePassword(password)
-            .doOnSubscribe { compositeDisposable.add(it) }
+            repository
+                    .savePassword(password)
+                    .doOnSubscribe { compositeDisposable.add(it) }
+
+    override fun undoDelete(): Single<List<PasswordModel>> =
+            lastPasswordDeleted?.let {
+                onCreatePassword(it)
+            } ?: Single.error(UnsupportedOperationException())
 
     override fun disposeAll() {
         compositeDisposable.dispose()

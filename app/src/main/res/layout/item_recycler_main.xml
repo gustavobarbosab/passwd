@@ -7,7 +7,7 @@
 
         <variable
             name="fields"
-            type="com.passwd.ui.home.model.MainItemPassword" />
+            type="com.passwd.ui.home.model.HomeItemPassword" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,7 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="16dp"
             android:minHeight="120dp"
             android:orientation="vertical">
 
@@ -42,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:text="@{fields.password}"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/appCompatCheckBox"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,22 +52,26 @@
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/appCompatCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="22dp"
                 android:checked="true"
+                android:button="@android:color/transparent"
+                android:background="@drawable/bg_eye_password_button"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/color"
+                app:layout_constraintEnd_toStartOf="@+id/passwordColor"
                 app:layout_constraintTop_toTopOf="parent"
                 app:passwordText="@{textView2}" />
 
             <View
-                android:id="@+id/color"
-                android:layout_width="7dp"
+                android:id="@+id/passwordColor"
+                android:layout_width="8dp"
                 android:layout_height="0dp"
-                android:background="@color/colorPrimary"
+                app:viewBackground="@{fields.color}"
+                android:background="@color/colorGray"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

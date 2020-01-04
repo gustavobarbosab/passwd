@@ -1,11 +1,15 @@
 package com.passwd.ui.home
 
+import android.graphics.Color
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.passwd.R
 
-class MainBinding {
+class HomeBinding {
 
     companion object {
         @JvmStatic
@@ -16,6 +20,13 @@ class MainBinding {
                 if (isChecked) passwordText.transformationMethod = PasswordTransformationMethod()
                 else passwordText.transformationMethod = null
             }
+        }
+
+        @JvmStatic
+        @BindingAdapter("viewBackground")
+        fun viewBackground(view: View,
+                           color: Int) {
+            view.setBackgroundColor(color)
         }
     }
 }

@@ -7,4 +7,19 @@
     <color name="colorGrayDark">#808080</color>
     <color name="colorGray">#B6B6B6</color>
     <color name="colorGrayLight">#CECECE</color>
+    <color name="colorDelete">#EF5350</color>
+
+    <!-- Color Selector -->
+    <color name="colorOne">#4BC1FF</color>
+    <color name="colorTwo">#FF810A</color>
+    <color name="colorThree">#2E992D</color>
+    <color name="colorFour">#CCC611</color>
+    <color name="colorFive">#D12963</color>
+    <color name="colorSix">#AB2DFF</color>
+    <color name="colorSeven">#F538FF</color>
+    <color name="colorEight">#391D99</color>
+    <color name="colorNine">#7680CC</color>
+    <color name="colorTeen">#AAB6CA</color>
+    <color name="colorEleven">#D14039</color>
+    <color name="colorTwelve">#000000</color>
 </resources>

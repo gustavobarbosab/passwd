@@ -1,16 +1,25 @@
 <resources>
     <string name="app_name">PASSWD</string>
-    <string name="teste_teste">Teste Gustavo</string>
 
     <!-- region BASE -->
     <string name="add">Adicionar</string>
     <string name="cancel">Cancelar</string>
     <!-- endregion -->
 
+    <!-- region Home -->
+    <string name="home_banner_username_message">Olá <b>%s</b>,</string>
+    <string name="home_banner_password_count">você tem %d <b>senhas salvas</b>\nem <b>segurança</b>.</string>
+    <string name="home_list_button_left">Editar</string>
+    <string name="home_list_button_right">Deletar</string>
+    <!-- endregion -->
+
     <!--  region CREATE PASSWORD  -->
     <string name="create_password_title">Criar nova senha</string>
     <string name="create_password_field_name">Apelido</string>
     <string name="create_password_field_password">Senha</string>
+    <string name="create_password_title_color_selector">Defina uma cor para a senha</string>
+    <string name="home_snackbar_delete_message">Senha deletada!</string>
+    <string name="home_snackbar_undo">Desfazer</string>
     <!-- endregion -->
 
 </resources>

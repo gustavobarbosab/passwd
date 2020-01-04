@@ -8,5 +8,6 @@ interface PasswordListUseCase {
     fun onFetchPasswords(force: Boolean): Single<List<PasswordModel>>
     fun onDeletePassword(password: PasswordModel): Completable
     fun onCreatePassword(password: PasswordModel): Single<List<PasswordModel>>
+    fun undoDelete(): Single<List<PasswordModel>>
     fun disposeAll()
 }
