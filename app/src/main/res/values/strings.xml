@@ -24,6 +24,7 @@
 
     <!-- region Authentication -->
     <string name="authentication_message">Por favor, entre com a senha de acesso\nao aplicativo.</string>
+    <string name="authentication_message_error">Por favor digite uma senha valida!</string>
     <!-- endregion -->
 
 </resources>

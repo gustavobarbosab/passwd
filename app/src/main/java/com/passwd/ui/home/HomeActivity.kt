@@ -1,5 +1,7 @@
 package com.passwd.ui.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +16,8 @@ import com.passwd.common.swipecontroler.SwipeController
 import com.passwd.common.swipecontroler.SwipeControllerProperties
 import com.passwd.databinding.ActivityMainBinding
 import com.passwd.ui.create.CreatePasswordDialog
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.homeContainer
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -25,8 +28,8 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
     private val viewModel: HomeViewModel by currentScope.viewModel(this)
 
     private val rightButtonRecycler = ButtonProperties(
-            R.color.colorDelete,
-            R.string.home_list_button_right) { position -> viewModel.deletePassword(adapter.getPassword(position)) }
+        R.color.colorDelete,
+        R.string.home_list_button_right) { position -> viewModel.deletePassword(adapter.getPassword(position)) }
 
     private val undoDeleteListener = View.OnClickListener {
         viewModel.undoDeleteLastPassword()
@@ -56,23 +59,21 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
 
     private fun observeViewStates() {
         viewModel
-                .viewState
-                .observe(this, Observer {
-                    when (it.getContentIfNotHandled()) {
-                        HomeStates.ShowLoading -> showLoading()
-                        HomeStates.HideLoading -> hideLoading()
-                        HomeStates.DeleteSuccess -> onDeleteSuccess()
-                        HomeStates.FetchSuccess -> onFetchListSuccess()
-                    }
-                })
+            .viewState
+            .observe(this, Observer {
+                when (it.getContentIfNotHandled()) {
+                    HomeStates.ShowLoading -> showLoading()
+                    HomeStates.HideLoading -> hideLoading()
+                    HomeStates.DeleteSuccess -> onDeleteSuccess()
+                    HomeStates.FetchSuccess -> onFetchListSuccess()
+                }
+            })
     }
 
     private fun showLoading() {
-
     }
 
     private fun hideLoading() {
-
     }
 
     private fun onDeleteSuccess() {
@@ -80,17 +81,16 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
     }
 
     private fun onFetchListSuccess() {
-
     }
 
     private fun observeCreatePassword() {
         viewModel
-                .showCreatePasswordDialog
-                .observe(this, Observer {
-                    it.getContentIfNotHandled()?.let {
-                        CreatePasswordDialog().show(supportFragmentManager, PASSWORD_DIALOG)
-                    }
-                })
+            .showCreatePasswordDialog
+            .observe(this, Observer {
+                it.getContentIfNotHandled()?.let {
+                    CreatePasswordDialog().show(supportFragmentManager, PASSWORD_DIALOG)
+                }
+            })
     }
 
     private fun setupDataBinding() {
@@ -100,19 +100,19 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
 
     private fun observeList() {
         viewModel
-                .passwordList
-                .observe(this, Observer {
-                    adapter.setPasswords(it)
-                    adapter.notifyDataSetChanged()
-                })
+            .passwordList
+            .observe(this, Observer {
+                adapter.setPasswords(it)
+                adapter.notifyDataSetChanged()
+            })
     }
 
     private fun observeError() {
         viewModel
-                .error
-                .observe(this, Observer { error ->
-                    error.getContentIfNotHandled()?.let { showShortToast(it) }
-                })
+            .error
+            .observe(this, Observer { error ->
+                error.getContentIfNotHandled()?.let { showShortToast(it) }
+            })
     }
 
     override fun passwordSuccessfullyCreated() {
@@ -120,6 +120,8 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
     }
 
     companion object {
+        fun newIntent(context: Context): Intent = Intent(context, HomeActivity::class.java)
+
         const val PASSWORD_DIALOG = "PASSWORD_DIALOG"
     }
 }
