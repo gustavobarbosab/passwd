@@ -23,8 +23,20 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+    <style name="TextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextColor">@color/colorPrimary</item>
         <item name="boxStrokeColor">@drawable/bg_box_text_input_color</item>
+    </style>
+
+    <style name="EditTextPassword">
+        <item name="android:background">@drawable/bg_password_text_field</item>
+        <item name="android:inputType">numberPassword</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textCursorDrawable">@color/colorGrayDark</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_margin">5dp</item>
     </style>
 </resources>

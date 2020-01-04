@@ -22,4 +22,8 @@
     <string name="home_snackbar_undo">Desfazer</string>
     <!-- endregion -->
 
+    <!-- region Authentication -->
+    <string name="authentication_message">Por favor, entre com a senha de acesso\nao aplicativo.</string>
+    <!-- endregion -->
+
 </resources>

@@ -1,4 +1,4 @@
-package com.passwd.common.widget.colorselector
+package com.passwd.common.widget
 
 import android.content.Context
 import android.content.res.ColorStateList
