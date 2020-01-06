@@ -3,6 +3,7 @@ package com.passwd.ui.authentication
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.passwd.ui.authentication.model.AuthenticationState
 
 class AuthenticationViewModel : ViewModel() {
 

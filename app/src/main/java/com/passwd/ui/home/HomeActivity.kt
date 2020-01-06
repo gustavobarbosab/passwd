@@ -16,6 +16,7 @@ import com.passwd.common.swipecontroler.SwipeController
 import com.passwd.common.swipecontroler.SwipeControllerProperties
 import com.passwd.databinding.ActivityMainBinding
 import com.passwd.ui.create.CreatePasswordDialog
+import com.passwd.ui.home.model.HomeStates
 import kotlinx.android.synthetic.main.activity_main.homeContainer
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import org.koin.androidx.scope.currentScope

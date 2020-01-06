@@ -1,4 +1,4 @@
-package com.passwd.ui.home
+package com.passwd.ui.home.model
 
 sealed class HomeStates {
     object FetchSuccess: HomeStates()

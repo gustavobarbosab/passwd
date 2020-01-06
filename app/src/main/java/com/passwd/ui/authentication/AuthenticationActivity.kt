@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.passwd.R
 import com.passwd.databinding.ActivityAuthenticationBinding
+import com.passwd.ui.authentication.model.AuthenticationState
 import com.passwd.ui.base.BaseActivity
 import com.passwd.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_authentication.authContainer

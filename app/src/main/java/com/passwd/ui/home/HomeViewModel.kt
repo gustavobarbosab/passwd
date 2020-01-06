@@ -8,6 +8,7 @@ import com.passwd.common.Event
 import com.passwd.ui.home.model.HomeBanner
 import com.passwd.ui.home.model.HomeItemPassword
 import com.passwd.ui.home.model.HomeMapper
+import com.passwd.ui.home.model.HomeStates
 import io.github.gustavobarbosab.domain.interactor.passwordList.PasswordListUseCase
 import io.github.gustavobarbosab.domain.model.PasswordModel
 
