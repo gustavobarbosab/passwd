@@ -18,13 +18,14 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class AuthenticationActivity : BaseActivity<ActivityAuthenticationBinding, AuthenticationViewModel>() {
 
     override val layoutId: Int = R.layout.activity_authentication
-    override fun createViewModel(): AuthenticationViewModel = currentScope.getViewModel(this)
+    override var requireAuthentication: Boolean = false
 
-    private lateinit var snackbarError: Snackbar
+    private lateinit var snackBarError: Snackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        snackbarError = Snackbar.make(authContainer, R.string.authentication_message_error, Snackbar.LENGTH_LONG)
+        viewModel = currentScope.getViewModel(this)
+        snackBarError = Snackbar.make(authContainer, R.string.authentication_message_error, Snackbar.LENGTH_LONG)
         passwordTextField.onPasswordComplete = viewModel::onPasswordComplete
         observeStates()
     }
@@ -46,7 +47,7 @@ class AuthenticationActivity : BaseActivity<ActivityAuthenticationBinding, Authe
     }
 
     private fun onAuthenticationFailure() {
-        snackbarError.show()
+        snackBarError.show()
     }
 
     companion object {

@@ -35,15 +35,15 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
 
     init {
         // TODO sera alterado quando salvarmos os dados do usuario
-        banner.username = "Arthur"
+        banner.username = "Gustavo"
         fetchPasswords(true)
     }
 
     @SuppressLint("CheckResult")
     fun fetchPasswords(force: Boolean) {
         useCase
-                .onFetchPasswords(force)
-                .subscribe(this::onSuccess, this::onError)
+            .onFetchPasswords(force)
+            .subscribe(this::onSuccess, this::onError)
     }
 
     fun createPassword() {
@@ -53,16 +53,16 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
     @SuppressLint("CheckResult")
     fun deletePassword(password: HomeItemPassword) {
         useCase
-                .onDeletePassword(mapper.transform(password))
-                .doOnComplete { _viewState.value = Event(HomeStates.DeleteSuccess) }
-                .subscribe { fetchPasswords(true) }
+            .onDeletePassword(mapper.transform(password))
+            .doOnComplete { _viewState.value = Event(HomeStates.DeleteSuccess) }
+            .subscribe { fetchPasswords(true) }
     }
 
     @SuppressLint("CheckResult")
     fun undoDeleteLastPassword() {
         useCase
-                .undoDelete()
-                .subscribe(this::onSuccess, this::onError)
+            .undoDelete()
+            .subscribe(this::onSuccess, this::onError)
     }
 
     private fun onSuccess(passwords: List<PasswordModel>) {

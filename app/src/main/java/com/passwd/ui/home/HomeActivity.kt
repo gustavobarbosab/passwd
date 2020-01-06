@@ -26,8 +26,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), CreateP
     private val adapter: HomeRecyclerAdapter by currentScope.inject()
 
     override val layoutId: Int = R.layout.activity_home
-
-    override fun createViewModel(): HomeViewModel = currentScope.getViewModel(this)
+    override var requireAuthentication: Boolean = true
 
     private val rightButtonRecycler = ButtonProperties(
         R.color.colorDelete,
@@ -45,6 +44,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), CreateP
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = currentScope.getViewModel(this)
         binding.viewModel = viewModel
         setupRecyclerView()
         observeList()

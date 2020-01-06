@@ -9,15 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import com.passwd.ui.authentication.AuthenticationActivity
-import com.passwd.ui.splash.SplashActivity
 
 abstract class BaseActivity<B : ViewDataBinding, V : ViewModel> : AppCompatActivity() {
 
     protected lateinit var viewModel: V
     protected lateinit var binding: B
 
+    protected abstract var requireAuthentication: Boolean
     abstract val layoutId: Int
-    abstract fun createViewModel(): V
 
     private val authHandler = Handler()
     private var isAuthenticated = false
@@ -25,7 +24,6 @@ abstract class BaseActivity<B : ViewDataBinding, V : ViewModel> : AppCompatActiv
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)
-        viewModel = createViewModel()
     }
 
     override fun onResume() {
@@ -34,7 +32,7 @@ abstract class BaseActivity<B : ViewDataBinding, V : ViewModel> : AppCompatActiv
     }
 
     private fun startAuth() {
-        if (isAuthenticated or isNotAuthenticateScreen()) return
+        if (isAuthenticated or !requireAuthentication) return
         startActivityForResult(AuthenticationActivity.newIntent(this), AUTH_ACTIVITY)
     }
 
@@ -43,10 +41,6 @@ abstract class BaseActivity<B : ViewDataBinding, V : ViewModel> : AppCompatActiv
         authHandler.removeCallbacks {}
         authHandler.postDelayed({ isAuthenticated = false }, AUTH_DELAY)
     }
-
-    private fun isNotAuthenticateScreen() =
-        (this is SplashActivity) or
-            (this is AuthenticationActivity)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

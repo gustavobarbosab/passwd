@@ -14,10 +14,11 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     override val layoutId: Int = R.layout.activity_splash
-    override fun createViewModel(): SplashViewModel = currentScope.getViewModel(this)
+    override var requireAuthentication: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = currentScope.getViewModel(this)
         observeStates()
     }
 
