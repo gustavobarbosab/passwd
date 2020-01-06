@@ -60,4 +60,7 @@ object Versions {
     const val junit = "4.12"
     const val androidx_espresso = "3.1.1"
     const val androidx_testing = "1.1.1"
+
+    //LOTIE
+    const val lottie = "3.3.1"
 }

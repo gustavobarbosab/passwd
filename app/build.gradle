@@ -55,4 +55,7 @@ dependencies {
 
     // RxAndroid
     implementation Dependencies.rxandroid
+
+    // Lottie
+    implementation Dependencies.lottie
 }
