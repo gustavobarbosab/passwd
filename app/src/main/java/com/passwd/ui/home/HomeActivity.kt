@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -14,19 +12,22 @@ import com.passwd.common.extension.showShortToast
 import com.passwd.common.swipecontroler.ButtonProperties
 import com.passwd.common.swipecontroler.SwipeController
 import com.passwd.common.swipecontroler.SwipeControllerProperties
-import com.passwd.databinding.ActivityMainBinding
+import com.passwd.databinding.ActivityHomeBinding
+import com.passwd.ui.base.BaseActivity
 import com.passwd.ui.create.CreatePasswordDialog
 import com.passwd.ui.home.model.HomeStates
-import kotlinx.android.synthetic.main.activity_main.homeContainer
-import kotlinx.android.synthetic.main.activity_main.recyclerView
+import kotlinx.android.synthetic.main.activity_home.homeContainer
+import kotlinx.android.synthetic.main.activity_home.recyclerView
 import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordListener {
+class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), CreatePasswordDialog.CreatePasswordListener {
 
-    private lateinit var binding: ActivityMainBinding
     private val adapter: HomeRecyclerAdapter by currentScope.inject()
-    private val viewModel: HomeViewModel by currentScope.viewModel(this)
+
+    override val layoutId: Int = R.layout.activity_home
+
+    override fun createViewModel(): HomeViewModel = currentScope.getViewModel(this)
 
     private val rightButtonRecycler = ButtonProperties(
         R.color.colorDelete,
@@ -44,7 +45,7 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupDataBinding()
+        binding.viewModel = viewModel
         setupRecyclerView()
         observeList()
         observeError()
@@ -92,11 +93,6 @@ class HomeActivity : AppCompatActivity(), CreatePasswordDialog.CreatePasswordLis
                     CreatePasswordDialog().show(supportFragmentManager, PASSWORD_DIALOG)
                 }
             })
-    }
-
-    private fun setupDataBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.viewModel = viewModel
     }
 
     private fun observeList() {

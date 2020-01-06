@@ -1,5 +1,8 @@
 package com.passwd.ui.authentication
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
@@ -7,7 +10,6 @@ import com.passwd.R
 import com.passwd.databinding.ActivityAuthenticationBinding
 import com.passwd.ui.authentication.model.AuthenticationState
 import com.passwd.ui.base.BaseActivity
-import com.passwd.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_authentication.authContainer
 import kotlinx.android.synthetic.main.activity_authentication.passwordTextField
 import org.koin.androidx.scope.currentScope
@@ -18,7 +20,7 @@ class AuthenticationActivity : BaseActivity<ActivityAuthenticationBinding, Authe
     override val layoutId: Int = R.layout.activity_authentication
     override fun createViewModel(): AuthenticationViewModel = currentScope.getViewModel(this)
 
-    lateinit var snackbarError: Snackbar
+    private lateinit var snackbarError: Snackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +38,18 @@ class AuthenticationActivity : BaseActivity<ActivityAuthenticationBinding, Authe
         })
     }
 
+    override fun onBackPressed() {}
+
     private fun onAuthenticationSuccess() {
-        // setResult(Activity.RESULT_OK)
-        // TODO mudar isso depois
-        startActivity(HomeActivity.newIntent(this))
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 
     private fun onAuthenticationFailure() {
         snackbarError.show()
+    }
+
+    companion object {
+        fun newIntent(context: Context) = Intent(context, AuthenticationActivity::class.java)
     }
 }

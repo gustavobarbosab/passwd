@@ -16,8 +16,10 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/imageView"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="150dp"
+                android:scaleType="centerInside"
+                app:fadeInAnimation="@{2000}"
                 app:layout_constraintBottom_toTopOf="@+id/passwordTextField"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -26,8 +28,8 @@
                 app:layout_constraintVertical_bias="0.2"
                 app:layout_constraintVertical_chainStyle="packed"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_fileName="@raw/locked" />
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/authentication" />
 
             <com.passwd.common.widget.password.PasswordTextField
                 android:id="@+id/passwordTextField"

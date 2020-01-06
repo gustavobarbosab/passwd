@@ -4,7 +4,6 @@ import android.graphics.Canvas
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class SwipeControllerBinding {
     companion object {
