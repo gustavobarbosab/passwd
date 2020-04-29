@@ -63,4 +63,6 @@ object Versions {
 
     //LOTIE
     const val lottie = "3.3.1"
+
+    const val navigation = "2.3.0-alpha01"
 }

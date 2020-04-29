@@ -3,11 +3,11 @@ buildscript {
     repositories {
         google()
         jcenter()
-
     }
     dependencies {
         classpath Dependencies.tools_gradle_android
         classpath Dependencies.tools_kotlin
+        classpath Dependencies.navigationSafeArgs
     }
 }
 
@@ -16,38 +16,6 @@ allprojects {
         google()
         jcenter()
 
-    }
-}
-
-subprojects {
-    afterEvaluate { project ->
-        if (project.hasProperty('android')) {
-
-            android {
-                buildToolsVersion Config.buildTools
-                compileSdkVersion Config.compileSdk
-
-                defaultConfig {
-                    minSdkVersion Config.minSdk
-                    targetSdkVersion Config.targetSdk
-                    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-                    consumerProguardFiles 'consumer-rules.pro'
-                }
-
-                dataBinding {
-                    enabled = true
-                }
-
-                androidExtensions {
-                    experimental = true
-                }
-
-                compileOptions {
-                    sourceCompatibility JavaVersion.VERSION_1_8
-                    targetCompatibility JavaVersion.VERSION_1_8
-                }
-            }
-        }
     }
 }
 

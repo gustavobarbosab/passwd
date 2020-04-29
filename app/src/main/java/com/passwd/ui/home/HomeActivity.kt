@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_home.recyclerView
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), CreatePasswordDialog.CreatePasswordListener {
+class       HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), CreatePasswordDialog.CreatePasswordListener {
 
     private val adapter: HomeRecyclerAdapter by currentScope.inject()
 

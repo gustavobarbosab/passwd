@@ -27,4 +27,6 @@
     <string name="authentication_message_error">Por favor digite uma senha valida!</string>
     <!-- endregion -->
 
+    <string name="title_register">Cadastro</string>
+
 </resources>
