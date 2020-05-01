@@ -1,10 +1,8 @@
 package com.passwd.ui.home
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.passwd.R
@@ -12,39 +10,43 @@ import com.passwd.common.extension.showShortToast
 import com.passwd.common.swipecontroler.ButtonProperties
 import com.passwd.common.swipecontroler.SwipeController
 import com.passwd.common.swipecontroler.SwipeControllerProperties
-import com.passwd.databinding.ActivityHomeBinding
-import com.passwd.ui.base.BaseActivity
+import com.passwd.databinding.FragmentHomeBinding
+import com.passwd.ui.base.BaseFragment
 import com.passwd.ui.create.CreatePasswordDialog
+import com.passwd.ui.home.di.HomeModule
 import com.passwd.ui.home.model.HomeStates
-import kotlinx.android.synthetic.main.activity_home.homeContainer
-import kotlinx.android.synthetic.main.activity_home.recyclerView
-import org.koin.androidx.scope.currentScope
+import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.qualifier.named
 
-class       HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), CreatePasswordDialog.CreatePasswordListener {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
+    CreatePasswordDialog.CreatePasswordListener {
 
-    private val adapter: HomeRecyclerAdapter by currentScope.inject()
+    override val layoutId: Int = R.layout.fragment_home
 
-    override val layoutId: Int = R.layout.activity_home
-    override var requireAuthentication: Boolean = true
+    val scope = getKoin().getOrCreateScope("HOME_ID", named(HomeModule.SCOPE_NAME))
+
+    private val adapter: HomeRecyclerAdapter by scope.inject()
 
     private val rightButtonRecycler = ButtonProperties(
         R.color.colorDelete,
-        R.string.home_list_button_right) { position -> viewModel.deletePassword(adapter.getPassword(position)) }
+        R.string.home_list_button_right
+    ) { position -> viewModel.deletePassword(adapter.getPassword(position)) }
 
     private val undoDeleteListener = View.OnClickListener {
         viewModel.undoDeleteLastPassword()
     }
 
     private val deleteSnackBar by lazy {
-        Snackbar.make(homeContainer, R.string.home_snackbar_delete_message, Snackbar.LENGTH_SHORT).apply {
-            setAction(R.string.home_snackbar_undo, undoDeleteListener)
-        }
+        Snackbar.make(homeContainer, R.string.home_snackbar_delete_message, Snackbar.LENGTH_SHORT)
+            .apply {
+                setAction(R.string.home_snackbar_undo, undoDeleteListener)
+            }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = currentScope.getViewModel(this)
+    override fun configureComponents(view: View) {
+        viewModel = scope.getViewModel(this)
         binding.viewModel = viewModel
         setupRecyclerView()
         observeList()
@@ -54,9 +56,11 @@ class       HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), C
     }
 
     private fun setupRecyclerView() {
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter
-        binding.swipeController = SwipeController(SwipeControllerProperties(rightButton = rightButtonRecycler))
+        binding.swipeController =
+            SwipeController(SwipeControllerProperties(rightButton = rightButtonRecycler))
     }
 
     private fun observeViewStates() {
@@ -90,7 +94,8 @@ class       HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), C
             .showCreatePasswordDialog
             .observe(this, Observer {
                 it.getContentIfNotHandled()?.let {
-                    CreatePasswordDialog().show(supportFragmentManager, PASSWORD_DIALOG)
+                    val direction = HomeFragmentDirections.actionCreatePassword()
+                    findNavController().navigate(direction)
                 }
             })
     }
@@ -108,7 +113,7 @@ class       HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), C
         viewModel
             .error
             .observe(this, Observer { error ->
-                error.getContentIfNotHandled()?.let { showShortToast(it) }
+                error.getContentIfNotHandled()?.let { context?.showShortToast(it) }
             })
     }
 
@@ -116,9 +121,8 @@ class       HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), C
         viewModel.fetchPasswords(true)
     }
 
-    companion object {
-        fun newIntent(context: Context): Intent = Intent(context, HomeActivity::class.java)
-
-        const val PASSWORD_DIALOG = "PASSWORD_DIALOG"
+    override fun onDestroy() {
+        scope.close()
+        super.onDestroy()
     }
 }

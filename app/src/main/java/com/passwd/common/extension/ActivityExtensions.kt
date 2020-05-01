@@ -1,8 +1,8 @@
 package com.passwd.common.extension
 
-import android.app.Activity
+import android.content.Context
 import android.widget.Toast
 
-fun Activity.showShortToast(message: String?) {
+fun Context.showShortToast(message: String?) {
     message?.let { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
 }
