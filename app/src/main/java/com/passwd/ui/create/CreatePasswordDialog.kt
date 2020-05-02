@@ -27,8 +27,13 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
         setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_create_password, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_create_password, container, false)
         binding.viewModel = viewModel
         return binding.root
     }
@@ -56,7 +61,8 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
             .genericError
             .observe(this, Observer {
                 it?.getContentIfNotHandled()?.let {
-                    Toast.makeText(context, "Houve um erro desconhecido! :[", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Houve um erro desconhecido! :[", Toast.LENGTH_SHORT)
+                        .show()
                 }
             })
 
@@ -74,7 +80,11 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
             .validationFieldsError
             .observe(this, Observer {
                 it?.getContentIfNotHandled()?.let {
-                    Toast.makeText(context, "Preencha todos os campos para prosseguir!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Preencha todos os campos para prosseguir!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }
