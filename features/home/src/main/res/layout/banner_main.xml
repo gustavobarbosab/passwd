@@ -7,7 +7,7 @@
 
         <variable
             name="fields"
-            type="com.passwd.ui.home.model.HomeBanner" />
+            type="com.passwd.home.model.HomeBanner" />
     </data>
 
 

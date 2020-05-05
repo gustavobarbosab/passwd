@@ -1,4 +1,4 @@
-package com.passwd.ui.home.model
+package com.passwd.home.model
 
 data class HomeItemPassword(
     val id: Long?,

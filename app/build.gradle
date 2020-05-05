@@ -45,7 +45,7 @@ android {
     }
 
 
-    dynamicFeatures = [":features:register"]
+    dynamicFeatures = [":features:register", ":features:home"]
 
 }
 
@@ -67,8 +67,8 @@ dependencies {
 
     // DI
     implementation Dependencies.koin_android
-    implementation Dependencies.koin_viewmodel
     implementation Dependencies.koin_scope
+    implementation Dependencies.koin_viewmodel
 
     // Room
     implementation Dependencies.room_runtime

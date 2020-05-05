@@ -1,13 +1,13 @@
-package com.passwd.ui.home.model
+package com.passwd.home.model
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import androidx.databinding.library.baseAdapters.BR
+import com.passwd.home.BR
 
-data class HomeBanner (
-        private var _username: String = "",
-        private var _passwordCount: Int = 0
-): BaseObservable() {
+data class HomeBanner(
+    private var _username: String = "",
+    private var _passwordCount: Int = 0
+) : BaseObservable() {
 
     var username: String
         @Bindable

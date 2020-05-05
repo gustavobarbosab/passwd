@@ -1,4 +1,4 @@
-package com.passwd.ui.home.model
+package com.passwd.home.model
 
 import io.github.gustavobarbosab.domain.base.Mapper
 import io.github.gustavobarbosab.domain.model.PasswordModel

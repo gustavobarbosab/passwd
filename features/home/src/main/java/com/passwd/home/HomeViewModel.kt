@@ -1,14 +1,14 @@
-package com.passwd.ui.home
+package com.passwd.home
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.passwd.common.Event
-import com.passwd.ui.home.model.HomeBanner
-import com.passwd.ui.home.model.HomeItemPassword
-import com.passwd.ui.home.model.HomeMapper
-import com.passwd.ui.home.model.HomeStates
+import com.passwd.home.model.HomeBanner
+import com.passwd.home.model.HomeItemPassword
+import com.passwd.home.model.HomeMapper
+import com.passwd.home.model.HomeStates
 import io.github.gustavobarbosab.domain.interactor.passwordList.PasswordListUseCase
 import io.github.gustavobarbosab.domain.model.PasswordModel
 

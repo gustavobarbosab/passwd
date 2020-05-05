@@ -1,42 +1,42 @@
-package com.passwd.ui.home
+package com.passwd.home
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.passwd.R
 import com.passwd.common.extension.showShortToast
 import com.passwd.common.swipecontroler.ButtonProperties
 import com.passwd.common.swipecontroler.SwipeController
 import com.passwd.common.swipecontroler.SwipeControllerProperties
-import com.passwd.databinding.FragmentHomeBinding
+import com.passwd.home.databinding.FragmentHomeBinding
 import com.passwd.ui.base.BaseFragment
 import com.passwd.ui.create.CreatePasswordDialog
-import com.passwd.ui.home.di.HomeModule
-import com.passwd.ui.home.model.HomeStates
+import com.passwd.home.di.HomeModule
+import com.passwd.home.model.HomeStates
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
+import org.koin.core.module.Module
 import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     CreatePasswordDialog.CreatePasswordListener {
 
+    override var modules: List<Module> = listOf(HomeModule.module)
     override val layoutId: Int = R.layout.fragment_home
-
-    val scope = getKoin().getOrCreateScope("HOME_ID", named(HomeModule.SCOPE_NAME))
-
-    private val adapter: HomeRecyclerAdapter by scope.inject()
+    lateinit var adapter: HomeRecyclerAdapter
 
     private val rightButtonRecycler = ButtonProperties(
-        R.color.colorDelete,
+        com.passwd.R.color.colorDelete,
         R.string.home_list_button_right
     ) { position -> viewModel.deletePassword(adapter.getPassword(position)) }
 
-    private val undoDeleteListener = View.OnClickListener {
-        viewModel.undoDeleteLastPassword()
-    }
+    private val undoDeleteListener = View.OnClickListener { viewModel.undoDeleteLastPassword() }
 
     private val deleteSnackBar by lazy {
         Snackbar.make(homeContainer, R.string.home_snackbar_delete_message, Snackbar.LENGTH_SHORT)
@@ -45,8 +45,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             }
     }
 
+    override fun initializeComponents(view: View) {
+        fragmentScope = getKoin().getOrCreateScope("HOME_ID", named(HomeModule.SCOPE_NAME))
+        viewModel = fragmentScope.getViewModel(this)
+        adapter = fragmentScope.get()
+    }
+
     override fun configureComponents(view: View) {
-        viewModel = scope.getViewModel(this)
         binding.viewModel = viewModel
         setupRecyclerView()
         observeList()
@@ -119,10 +124,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     override fun passwordSuccessfullyCreated() {
         viewModel.fetchPasswords(true)
-    }
-
-    override fun onDestroy() {
-        scope.close()
-        super.onDestroy()
     }
 }

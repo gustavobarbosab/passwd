@@ -1,10 +1,10 @@
-package com.passwd.ui.home
+package com.passwd.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.passwd.databinding.ItemRecyclerMainBinding
-import com.passwd.ui.home.model.HomeItemPassword
+import com.passwd.home.databinding.ItemRecyclerMainBinding
+import com.passwd.home.model.HomeItemPassword
 
 class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
 
