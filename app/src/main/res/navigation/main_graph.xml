@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.passwd.home.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_createPassword"
+            app:destination="@id/createPasswordDialog" />
+    </fragment>
 
+    <dialog
+        android:id="@+id/createPasswordDialog"
+        tools:layout="@layout/dialog_create_password"
+        android:name="com.passwd.ui.create.CreatePasswordDialog"
+        android:label="CreatePasswordDialog" />
 
 </navigation>

@@ -12,18 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.register.RegisterActivity"></activity>
-        <activity android:name=".ui.splash.SplashActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.authentication.AuthenticationActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".ui.home.HomeActivity" />
     </application>
 
 </manifest>
