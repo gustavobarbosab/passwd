@@ -54,6 +54,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':domain')
+    implementation project(':core')
 
     // Base
     implementation Dependencies.appcompat

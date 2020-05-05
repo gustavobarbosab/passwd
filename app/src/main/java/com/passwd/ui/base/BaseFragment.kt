@@ -8,28 +8,30 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import com.passwd.core.di.ModuleConfig
 import org.koin.android.ext.android.getKoin
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
-import org.koin.core.module.Module
+import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
 
 abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
     protected lateinit var viewModel: V
     protected lateinit var binding: B
 
-    private val loadModules by lazy { loadKoinModules(modules) }
-    open var modules: List<Module> = emptyList()
-    open lateinit var fragmentScope: Scope
+    private val loadModules by lazy { loadKoinModules(moduleConfig.modules) }
+    lateinit var fragmentScope: Scope
 
+    abstract val moduleConfig: ModuleConfig
     abstract val layoutId: Int
 
-    open fun configureComponents(view: View) {}
-    open fun initializeComponents(view: View) {}
+    open fun beforeCreatedView(view: View) {}
+    open fun afterCreateView(view: View) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loadModules
+        fragmentScope = getKoin().getOrCreateScope(moduleConfig.id, named(moduleConfig.name))
     }
 
     override fun onCreateView(
@@ -39,18 +41,18 @@ abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         val view = binding.root
-        initializeComponents(view)
+        beforeCreatedView(view)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configureComponents(view)
+        afterCreateView(view)
     }
 
     override fun onDestroy() {
         fragmentScope.close()
-        unloadKoinModules(modules)
+        unloadKoinModules(moduleConfig.modules)
         super.onDestroy()
     }
 }

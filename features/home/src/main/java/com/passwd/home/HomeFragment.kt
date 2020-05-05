@@ -1,6 +1,5 @@
 package com.passwd.home
 
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -10,25 +9,25 @@ import com.passwd.common.extension.showShortToast
 import com.passwd.common.swipecontroler.ButtonProperties
 import com.passwd.common.swipecontroler.SwipeController
 import com.passwd.common.swipecontroler.SwipeControllerProperties
+import com.passwd.core.di.ModuleConfig
 import com.passwd.home.databinding.FragmentHomeBinding
-import com.passwd.ui.base.BaseFragment
-import com.passwd.ui.create.CreatePasswordDialog
 import com.passwd.home.di.HomeModule
 import com.passwd.home.model.HomeStates
+import com.passwd.ui.base.BaseFragment
+import com.passwd.ui.create.CreatePasswordDialog
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.core.context.loadKoinModules
-import org.koin.core.context.unloadKoinModules
-import org.koin.core.module.Module
-import org.koin.core.qualifier.named
-import org.koin.core.scope.Scope
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     CreatePasswordDialog.CreatePasswordListener {
 
-    override var modules: List<Module> = listOf(HomeModule.module)
+    override val moduleConfig: ModuleConfig = ModuleConfig(
+        "HOME_ID",
+        HomeModule.SCOPE_NAME,
+        listOf(HomeModule.module)
+    )
     override val layoutId: Int = R.layout.fragment_home
+
     lateinit var adapter: HomeRecyclerAdapter
 
     private val rightButtonRecycler = ButtonProperties(
@@ -45,13 +44,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             }
     }
 
-    override fun initializeComponents(view: View) {
-        fragmentScope = getKoin().getOrCreateScope("HOME_ID", named(HomeModule.SCOPE_NAME))
+    override fun beforeCreatedView(view: View) {
         viewModel = fragmentScope.getViewModel(this)
         adapter = fragmentScope.get()
     }
 
-    override fun configureComponents(view: View) {
+    override fun afterCreateView(view: View) {
         binding.viewModel = viewModel
         setupRecyclerView()
         observeList()
@@ -73,25 +71,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             .viewState
             .observe(this, Observer {
                 when (it.getContentIfNotHandled()) {
-                    HomeStates.ShowLoading -> showLoading()
-                    HomeStates.HideLoading -> hideLoading()
-                    HomeStates.DeleteSuccess -> onDeleteSuccess()
-                    HomeStates.FetchSuccess -> onFetchListSuccess()
+                    HomeStates.ShowLoading -> {}
+                    HomeStates.HideLoading -> {}
+                    HomeStates.DeleteSuccess -> deleteSnackBar.show()
+                    HomeStates.FetchSuccess -> {}
                 }
             })
-    }
-
-    private fun showLoading() {
-    }
-
-    private fun hideLoading() {
-    }
-
-    private fun onDeleteSuccess() {
-        deleteSnackBar.show()
-    }
-
-    private fun onFetchListSuccess() {
     }
 
     private fun observeCreatePassword() {
