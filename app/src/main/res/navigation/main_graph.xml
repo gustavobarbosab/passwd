@@ -19,5 +19,4 @@
         tools:layout="@layout/dialog_create_password"
         android:name="com.passwd.ui.create.CreatePasswordDialog"
         android:label="CreatePasswordDialog" />
-
 </navigation>
