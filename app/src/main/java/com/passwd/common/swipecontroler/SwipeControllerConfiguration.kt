@@ -5,12 +5,21 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class SwipeControllerBinding {
+class SwipeControllerConfiguration {
     companion object {
         @JvmStatic
-        @BindingAdapter("addSwipeController")
-        fun setupRecyclerWithSwipe(recyclerView: RecyclerView,
-                                   swipeController: SwipeController) {
+        @BindingAdapter("bind:addSwipeController")
+        fun addSwipeController(
+            recyclerView: RecyclerView,
+            swipeController: SwipeController
+        ) {
+            configure(recyclerView, swipeController)
+        }
+
+        fun configure(
+            recyclerView: RecyclerView,
+            swipeController: SwipeController
+        ) {
             val itemTouchHelper = ItemTouchHelper(swipeController)
             itemTouchHelper.attachToRecyclerView(recyclerView)
 
