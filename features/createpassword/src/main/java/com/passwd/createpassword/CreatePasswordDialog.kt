@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.passwd.common.KoinModuleInjection
+import com.passwd.core.di.KoinModuleInjection
 import com.passwd.common.extension.setNavigationResult
-import com.passwd.core.di.ModuleConfig
+import com.passwd.core.di.KoinModuleConfig
 import com.passwd.createpassword.databinding.DialogCreatePasswordBinding
 import com.passwd.createpassword.di.CreatePasswordModule
 import io.github.gustavobarbosab.domain.model.PasswordCreationResult
@@ -20,7 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class CreatePasswordDialog : BottomSheetDialogFragment() {
 
     private val moduleInjection = KoinModuleInjection(
-        ModuleConfig(
+        KoinModuleConfig(
             "CREATE_PASSWORD",
             CreatePasswordModule.SCOPE_NAME,
             listOf(CreatePasswordModule.module)

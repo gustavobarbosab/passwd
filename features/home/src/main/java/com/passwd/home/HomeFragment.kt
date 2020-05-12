@@ -10,7 +10,7 @@ import com.passwd.common.swipecontroler.ButtonProperties
 import com.passwd.common.swipecontroler.SwipeController
 import com.passwd.common.swipecontroler.SwipeControllerConfiguration
 import com.passwd.common.swipecontroler.SwipeControllerProperties
-import com.passwd.core.di.ModuleConfig
+import com.passwd.core.di.KoinModuleConfig
 import com.passwd.home.databinding.FragmentHomeBinding
 import com.passwd.home.di.HomeModule
 import com.passwd.home.model.HomeStates
@@ -20,7 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
-    override val moduleConfig: ModuleConfig = ModuleConfig(
+    override var koinModuleConfig: KoinModuleConfig? = KoinModuleConfig(
         "HOME_ID",
         HomeModule.SCOPE_NAME,
         listOf(HomeModule.module)

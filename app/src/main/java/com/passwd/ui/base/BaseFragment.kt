@@ -8,19 +8,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import com.passwd.common.KoinModuleInjection
-import com.passwd.core.di.ModuleConfig
-import org.koin.android.ext.android.getKoin
-import org.koin.core.context.loadKoinModules
-import org.koin.core.context.unloadKoinModules
-import org.koin.core.qualifier.named
+import com.passwd.core.di.KoinModuleInjection
+import com.passwd.core.di.KoinModuleConfig
 import org.koin.core.scope.Scope
 
 abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
+
     protected lateinit var viewModel: V
     protected lateinit var binding: B
-    abstract val moduleConfig: ModuleConfig
 
+    open var koinModuleConfig: KoinModuleConfig? = null
     private lateinit var moduleInjection: KoinModuleInjection
     val scopeFragment: Scope
         get() = moduleInjection.moduleScope
@@ -32,7 +29,7 @@ abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        moduleInjection = KoinModuleInjection(moduleConfig)
+        koinModuleConfig?.let { moduleInjection = KoinModuleInjection(it) }
     }
 
     override fun onCreateView(

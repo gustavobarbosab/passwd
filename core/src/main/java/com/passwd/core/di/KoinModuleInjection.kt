@@ -1,28 +1,26 @@
-package com.passwd.common
+package com.passwd.core.di
 
-import com.passwd.core.di.ModuleConfig
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
 import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
-import java.lang.RuntimeException
 
-class KoinModuleInjection(private val moduleConfig: ModuleConfig) {
+class KoinModuleInjection(private val koinModuleConfig: KoinModuleConfig) {
 
     var moduleScope: Scope
 
     init {
-        val modules = moduleConfig.modules
+        val modules = koinModuleConfig.modules
         if (modules.isEmpty()) throw RuntimeException("Por favor, insira uma lista de modulos")
         loadKoinModules(modules)
         moduleScope =
-            GlobalContext.get().koin.getOrCreateScope(moduleConfig.id, named(moduleConfig.name))
+            GlobalContext.get().koin.getOrCreateScope(koinModuleConfig.id, named(koinModuleConfig.name))
 
     }
 
     fun unloadModules() {
-        val modules = moduleConfig.modules
+        val modules = koinModuleConfig.modules
         moduleScope.close()
         unloadKoinModules(modules)
     }
