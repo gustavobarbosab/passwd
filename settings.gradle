@@ -1,2 +1,9 @@
-include ':app', ':buildSrc', ':domain', ':features', ':features:register', ':features:home',':core'
+include ':app',
+        ':buildSrc',
+        ':domain',
+        ':features',
+        ':features:register',
+        ':features:home',
+        ':features:createpassword',
+        ':core'
 rootProject.name = 'Passwd'

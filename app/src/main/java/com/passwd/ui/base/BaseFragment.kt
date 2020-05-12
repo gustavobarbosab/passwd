@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import com.passwd.common.KoinModuleInjection
 import com.passwd.core.di.ModuleConfig
 import org.koin.android.ext.android.getKoin
 import org.koin.core.context.loadKoinModules
@@ -18,11 +19,12 @@ import org.koin.core.scope.Scope
 abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
     protected lateinit var viewModel: V
     protected lateinit var binding: B
-
-    private val loadModules by lazy { loadKoinModules(moduleConfig.modules) }
-    lateinit var fragmentScope: Scope
-
     abstract val moduleConfig: ModuleConfig
+
+    private lateinit var moduleInjection: KoinModuleInjection
+    val scopeFragment: Scope
+        get() = moduleInjection.moduleScope
+
     abstract val layoutId: Int
 
     open fun beforeCreatedView(view: View) {}
@@ -30,8 +32,7 @@ abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadModules
-        fragmentScope = getKoin().getOrCreateScope(moduleConfig.id, named(moduleConfig.name))
+        moduleInjection = KoinModuleInjection(moduleConfig)
     }
 
     override fun onCreateView(
@@ -51,8 +52,7 @@ abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
     }
 
     override fun onDestroy() {
-        fragmentScope.close()
-        unloadKoinModules(moduleConfig.modules)
+        moduleInjection.unloadModules()
         super.onDestroy()
     }
 }

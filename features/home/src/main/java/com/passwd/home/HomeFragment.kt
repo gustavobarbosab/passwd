@@ -44,8 +44,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun beforeCreatedView(view: View) {
-        viewModel = fragmentScope.getViewModel(this)
-        adapter = fragmentScope.get()
+        viewModel = scopeFragment.getViewModel(this)
+        adapter = scopeFragment.get()
     }
 
     override fun afterCreateView(view: View) {

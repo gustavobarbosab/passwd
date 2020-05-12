@@ -1,29 +1,32 @@
-package com.passwd.ui.create
+package com.passwd.createpassword
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.passwd.R
+import com.passwd.common.KoinModuleInjection
 import com.passwd.common.extension.setNavigationResult
-import com.passwd.databinding.DialogCreatePasswordBinding
+import com.passwd.core.di.ModuleConfig
+import com.passwd.createpassword.databinding.DialogCreatePasswordBinding
+import com.passwd.createpassword.di.CreatePasswordModule
 import io.github.gustavobarbosab.domain.model.PasswordCreationResult
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_create_password.closeButton
-import kotlinx.android.synthetic.main.dialog_create_password.colorSelector
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlinx.android.synthetic.main.dialog_create_password.*
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class CreatePasswordDialog : BottomSheetDialogFragment() {
 
-    private val viewModel: CreatePasswordViewModel by currentScope.viewModel(this)
+    private val moduleInjection = KoinModuleInjection(
+        ModuleConfig(
+            "CREATE_PASSWORD",
+            CreatePasswordModule.SCOPE_NAME,
+            listOf(CreatePasswordModule.module)
+        )
+    )
+    lateinit var viewModel: CreatePasswordViewModel
     lateinit var binding: DialogCreatePasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +39,7 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = moduleInjection.moduleScope.getViewModel(this)
         binding =
             DataBindingUtil.inflate(inflater, R.layout.dialog_create_password, container, false)
         binding.viewModel = viewModel
@@ -107,5 +111,10 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
 
     private fun onColorSelected(color: Int) {
         viewModel.colorSelected = color
+    }
+
+    override fun onDestroy() {
+        moduleInjection.unloadModules()
+        super.onDestroy()
     }
 }
