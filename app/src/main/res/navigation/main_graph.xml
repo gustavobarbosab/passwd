@@ -16,7 +16,6 @@
 
     <dialog
         android:id="@+id/createPasswordDialog"
-        tools:layout="@layout/dialog_create_password"
-        android:name="com.passwd.ui.create.CreatePasswordDialog"
+        android:name="com.passwd.createpassword.CreatePasswordDialog"
         android:label="CreatePasswordDialog" />
 </navigation>

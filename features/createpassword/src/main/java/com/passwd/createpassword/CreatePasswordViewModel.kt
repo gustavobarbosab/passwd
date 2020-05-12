@@ -1,4 +1,4 @@
-package com.passwd.ui.create
+package com.passwd.createpassword
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData

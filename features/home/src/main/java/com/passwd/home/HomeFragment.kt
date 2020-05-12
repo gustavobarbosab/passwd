@@ -3,23 +3,22 @@ package com.passwd.home
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.passwd.common.extension.getNavigationResult
 import com.passwd.common.extension.showShortToast
 import com.passwd.common.swipecontroler.ButtonProperties
 import com.passwd.common.swipecontroler.SwipeController
+import com.passwd.common.swipecontroler.SwipeControllerConfiguration
 import com.passwd.common.swipecontroler.SwipeControllerProperties
 import com.passwd.core.di.ModuleConfig
 import com.passwd.home.databinding.FragmentHomeBinding
 import com.passwd.home.di.HomeModule
 import com.passwd.home.model.HomeStates
 import com.passwd.ui.base.BaseFragment
-import com.passwd.ui.create.CreatePasswordDialog
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
-    CreatePasswordDialog.CreatePasswordListener {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override val moduleConfig: ModuleConfig = ModuleConfig(
         "HOME_ID",
@@ -45,8 +44,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     }
 
     override fun beforeCreatedView(view: View) {
-        viewModel = fragmentScope.getViewModel(this)
-        adapter = fragmentScope.get()
+        viewModel = scopeFragment.getViewModel(this)
+        adapter = scopeFragment.get()
     }
 
     override fun afterCreateView(view: View) {
@@ -59,11 +58,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     }
 
     private fun setupRecyclerView() {
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter
-        binding.swipeController =
+        SwipeControllerConfiguration.configure(
+            recyclerView,
             SwipeController(SwipeControllerProperties(rightButton = rightButtonRecycler))
+        )
     }
 
     private fun observeViewStates() {
@@ -71,10 +70,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             .viewState
             .observe(this, Observer {
                 when (it.getContentIfNotHandled()) {
-                    HomeStates.ShowLoading -> {}
-                    HomeStates.HideLoading -> {}
+                    HomeStates.ShowLoading -> {
+                    }
+                    HomeStates.HideLoading -> {
+                    }
                     HomeStates.DeleteSuccess -> deleteSnackBar.show()
-                    HomeStates.FetchSuccess -> {}
+                    HomeStates.FetchSuccess -> {
+                    }
                 }
             })
     }
@@ -87,6 +89,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
                     val direction = HomeFragmentDirections.actionCreatePassword()
                     findNavController().navigate(direction)
                 }
+            })
+
+        getNavigationResult<String>()
+            ?.observe(this, Observer {
+                viewModel.fetchPasswords(true)
             })
     }
 
@@ -105,9 +112,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             .observe(this, Observer { error ->
                 error.getContentIfNotHandled()?.let { context?.showShortToast(it) }
             })
-    }
-
-    override fun passwordSuccessfullyCreated() {
-        viewModel.fetchPasswords(true)
     }
 }

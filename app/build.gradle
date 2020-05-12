@@ -45,7 +45,7 @@ android {
     }
 
 
-    dynamicFeatures = [":features:register", ":features:home"]
+    dynamicFeatures = [":features:register", ":features:home", ":features:createpassword"]
 
 }
 
