@@ -1,8 +1,8 @@
-package com.passwd.di
+package com.passwd.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.passwd.data.database.PasswdDatabase
+import com.passwd.core.data.database.PasswdDatabase
 import org.koin.dsl.module
 
 object DatabaseModule {

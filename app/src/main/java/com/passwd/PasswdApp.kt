@@ -2,9 +2,9 @@ package com.passwd
 
 import android.app.Application
 import com.passwd.di.AppModule
-import com.passwd.di.DataSourceModule
-import com.passwd.di.DatabaseModule
-import com.passwd.di.RepositoryModule
+import com.passwd.core.di.DataSourceModule
+import com.passwd.core.di.DatabaseModule
+import com.passwd.core.di.RepositoryModule
 import com.passwd.ui.authentication.di.AuthenticationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

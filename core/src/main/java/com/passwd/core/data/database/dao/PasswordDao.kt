@@ -1,4 +1,4 @@
-package com.passwd.data.database.dao
+package com.passwd.core.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.passwd.data.database.dto.PasswordDto
+import com.passwd.core.data.database.dto.PasswordDto
 import io.reactivex.Completable
 import io.reactivex.Single
 

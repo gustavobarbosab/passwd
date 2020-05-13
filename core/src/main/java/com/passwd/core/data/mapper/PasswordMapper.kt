@@ -1,6 +1,6 @@
-package com.passwd.data.mapper
+package com.passwd.core.data.mapper
 
-import com.passwd.data.database.dto.PasswordDto
+import com.passwd.core.data.database.dto.PasswordDto
 import io.github.gustavobarbosab.domain.base.Mapper
 import io.github.gustavobarbosab.domain.model.PasswordModel
 

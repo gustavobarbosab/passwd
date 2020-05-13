@@ -1,11 +1,12 @@
-package com.passwd.data.repository
+package com.passwd.core.data.repository
 
-import com.passwd.common.extension.workIOThread
 import io.github.gustavobarbosab.domain.model.PasswordModel
 import io.github.gustavobarbosab.domain.repository.PasswordRepository
 import io.github.gustavobarbosab.domain.source.PasswordDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class PasswordRepositoryImpl(private val localDataSource: PasswordDataSource) : PasswordRepository {
 
@@ -15,7 +16,8 @@ class PasswordRepositoryImpl(private val localDataSource: PasswordDataSource) : 
         if (force || passwordCache.isEmpty()) {
             return localDataSource
                 .getPasswords()
-                .workIOThread()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess { updateList(it) }
         }
 
@@ -25,19 +27,22 @@ class PasswordRepositoryImpl(private val localDataSource: PasswordDataSource) : 
     override fun savePassword(password: PasswordModel): Single<List<PasswordModel>> =
         localDataSource
             .savePassword(password)
-            .workIOThread()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess { updateList(it) }
 
     override fun deletePassword(password: PasswordModel): Completable =
         localDataSource
             .deletePassword(password)
-            .workIOThread()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doOnComplete { passwordCache.remove(password) }
 
     override fun editPassword(password: PasswordModel): Completable =
         localDataSource
             .editPassword(password)
-            .workIOThread()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doOnComplete { passwordCache.fill(password) }
 
     private fun updateList(passwords: List<PasswordModel>) {

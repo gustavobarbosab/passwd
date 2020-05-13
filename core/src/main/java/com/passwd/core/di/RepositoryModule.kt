@@ -1,7 +1,6 @@
-package com.passwd.di
+package com.passwd.core.di
 
-import com.passwd.data.mapper.PasswordMapper
-import com.passwd.data.repository.PasswordRepositoryImpl
+import com.passwd.core.data.repository.PasswordRepositoryImpl
 import io.github.gustavobarbosab.domain.repository.PasswordRepository
 import org.koin.dsl.module
 
