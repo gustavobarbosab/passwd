@@ -1,4 +1,4 @@
-package com.passwd.core.di
+package com.gustavobarbosab.moduleinjection
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -11,6 +11,7 @@ import org.koin.core.scope.Scope
 
 class KoinModuleInjection(private val koinModuleConfig: KoinModuleConfig) {
 
+    // TODO refatorar e adicionar Timber
     private val koin
         get() = GlobalContext.get().koin
 
@@ -33,11 +34,9 @@ class KoinModuleInjection(private val koinModuleConfig: KoinModuleConfig) {
                     koinModuleConfig.owner = null
                     source.lifecycle.removeObserver(this)
                     unloadModules()
-                    logInfo(msg = "Foi destruidoo!")
                 }
             }
         })
-        logInfo(msg = "Foi iniciado!")
     }
 
     fun getScope(scopeId: String) = koin.getScope(scopeId)

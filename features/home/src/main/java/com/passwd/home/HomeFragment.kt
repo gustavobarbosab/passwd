@@ -4,19 +4,18 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.gustavobarbosab.moduleinjection.KoinModuleConfig
 import com.passwd.common.extension.getNavigationResult
 import com.passwd.common.extension.showShortToast
 import com.passwd.common.swipecontroler.ButtonProperties
 import com.passwd.common.swipecontroler.SwipeController
 import com.passwd.common.swipecontroler.SwipeControllerConfiguration
 import com.passwd.common.swipecontroler.SwipeControllerProperties
-import com.passwd.core.di.KoinModuleConfig
 import com.passwd.home.databinding.FragmentHomeBinding
 import com.passwd.home.di.HomeModule
 import com.passwd.home.model.HomeStates
 import com.passwd.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {

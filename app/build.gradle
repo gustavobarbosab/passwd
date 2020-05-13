@@ -54,6 +54,7 @@ dependencies {
 
     implementation project(':domain')
     implementation project(':core')
+    implementation project(':libraries:moduleinjection')
 
     // Base
     implementation Dependencies.appcompat

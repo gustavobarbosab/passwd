@@ -1,4 +1,4 @@
-package com.passwd.core.di
+package com.gustavobarbosab.moduleinjection
 
 import androidx.lifecycle.LifecycleOwner
 import org.koin.core.module.Module

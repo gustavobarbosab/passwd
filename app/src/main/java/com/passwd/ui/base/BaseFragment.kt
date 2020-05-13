@@ -8,8 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import com.passwd.core.di.KoinModuleInjection
-import com.passwd.core.di.KoinModuleConfig
+import com.gustavobarbosab.moduleinjection.KoinModuleConfig
+import com.gustavobarbosab.moduleinjection.KoinModuleInjection
 import org.koin.core.scope.Scope
 
 abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
