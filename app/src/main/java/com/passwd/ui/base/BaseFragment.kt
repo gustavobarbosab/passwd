@@ -47,9 +47,4 @@ abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         afterCreateView(view)
     }
-
-    override fun onDestroy() {
-        moduleInjection.unloadModules()
-        super.onDestroy()
-    }
 }

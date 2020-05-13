@@ -1,5 +1,8 @@
 package com.passwd.core.di
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
@@ -23,6 +26,18 @@ class KoinModuleInjection(private val koinModuleConfig: KoinModuleConfig) {
             koinModuleConfig.primaryScopeId,
             koinModuleConfig.primaryScopeName
         )
+
+        koinModuleConfig.owner?.lifecycle?.addObserver(object : LifecycleEventObserver {
+            override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                if (event == Lifecycle.Event.ON_DESTROY) {
+                    koinModuleConfig.owner = null
+                    source.lifecycle.removeObserver(this)
+                    unloadModules()
+                    logInfo(msg = "Foi destruidoo!")
+                }
+            }
+        })
+        logInfo(msg = "Foi iniciado!")
     }
 
     fun getScope(scopeId: String) = koin.getScope(scopeId)

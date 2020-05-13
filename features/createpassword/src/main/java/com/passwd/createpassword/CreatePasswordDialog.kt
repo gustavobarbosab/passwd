@@ -21,6 +21,7 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
 
     private val moduleInjection = KoinModuleInjection(
         KoinModuleConfig(
+            this,
             "CREATE_PASSWORD",
             CreatePasswordModule.SCOPE_NAME,
             listOf(CreatePasswordModule.module)
@@ -120,10 +121,5 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
 
     private fun onColorSelected(color: Int) {
         viewModel.colorSelected = color
-    }
-
-    override fun onDestroy() {
-        moduleInjection.unloadModules()
-        super.onDestroy()
     }
 }

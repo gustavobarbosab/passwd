@@ -16,11 +16,13 @@ import com.passwd.home.di.HomeModule
 import com.passwd.home.model.HomeStates
 import com.passwd.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override var koinModuleConfig: KoinModuleConfig? = KoinModuleConfig(
+        owner = this,
         primaryScopeId = "HOME_ID",
         primaryScopeName = HomeModule.SCOPE_NAME,
         modules = listOf(HomeModule.module)
