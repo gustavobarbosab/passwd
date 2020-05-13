@@ -21,9 +21,9 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override var koinModuleConfig: KoinModuleConfig? = KoinModuleConfig(
-        "HOME_ID",
-        HomeModule.SCOPE_NAME,
-        listOf(HomeModule.module)
+        primaryScopeId = "HOME_ID",
+        primaryScopeName = HomeModule.SCOPE_NAME,
+        modules = listOf(HomeModule.module)
     )
     override val layoutId: Int = R.layout.fragment_home
 

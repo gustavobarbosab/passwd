@@ -29,6 +29,9 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
     lateinit var viewModel: CreatePasswordViewModel
     lateinit var binding: DialogCreatePasswordBinding
 
+    private val scopeFragment
+        get() = moduleInjection.primaryScope
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
@@ -39,9 +42,15 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = moduleInjection.moduleScope.getViewModel(this)
+        viewModel = scopeFragment.getViewModel(this)
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.dialog_create_password, container, false)
+            DataBindingUtil
+                .inflate(
+                    inflater,
+                    R.layout.dialog_create_password,
+                    container,
+                    false
+                )
         binding.viewModel = viewModel
         return binding.root
     }

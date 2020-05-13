@@ -20,7 +20,7 @@ abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
     open var koinModuleConfig: KoinModuleConfig? = null
     private lateinit var moduleInjection: KoinModuleInjection
     val scopeFragment: Scope
-        get() = moduleInjection.moduleScope
+        get() = moduleInjection.primaryScope
 
     abstract val layoutId: Int
 
