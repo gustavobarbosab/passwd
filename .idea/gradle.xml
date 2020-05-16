@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/features/home" />
             <option value="$PROJECT_DIR$/features/register" />
             <option value="$PROJECT_DIR$/libraries" />
+            <option value="$PROJECT_DIR$/libraries/clearedpresenter" />
             <option value="$PROJECT_DIR$/libraries/moduleinjection" />
           </set>
         </option>
