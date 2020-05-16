@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_banner_username_message">Olá <b>%s</b>,</string>
+    <string name="home_banner_password_count">você tem %d <b>senhas salvas</b>\nem <b>segurança</b>.</string>
+    <string name="home_list_button_left">Editar</string>
+    <string name="home_list_button_right">Deletar</string>
+    <string name="home_snackbar_delete_message">Senha deletada!</string>
+    <string name="home_snackbar_undo">Desfazer</string>
+</resources>

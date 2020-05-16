@@ -1,7 +1,7 @@
 object Versions {
     //TOOLS
     const val gradleandroid = "3.5.0"
-    const val kotlin = "1.3.50"
+    const val kotlin = "1.3.41"
 
     //ANDROIDX
     const val core = "1.0.2"
@@ -63,4 +63,7 @@ object Versions {
 
     //LOTIE
     const val lottie = "3.3.1"
+
+    // NAVIGATION
+    const val navigation = "2.3.0-alpha05"
 }

@@ -1,18 +1,37 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+
     defaultConfig {
         applicationId "com.passwd"
+        minSdkVersion 21
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -24,12 +43,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+
+    dynamicFeatures = [":features:register", ":features:home", ":features:createpassword"]
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':domain')
+    implementation project(':core')
+    implementation project(':libraries:moduleinjection')
 
     // Base
     implementation Dependencies.appcompat
@@ -44,8 +69,8 @@ dependencies {
 
     // DI
     implementation Dependencies.koin_android
-    implementation Dependencies.koin_viewmodel
     implementation Dependencies.koin_scope
+    implementation Dependencies.koin_viewmodel
 
     // Room
     implementation Dependencies.room_runtime
@@ -58,4 +83,9 @@ dependencies {
 
     // Lottie
     implementation Dependencies.lottie
+
+    // Navigation
+    api Dependencies.navigationFragment
+    api Dependencies.navigationUiKtx
+    api Dependencies.navigationDynamicFeature
 }

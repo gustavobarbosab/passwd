@@ -1,2 +1,12 @@
-include ':app', ':buildSrc', ':domain'
-rootProject.name='Passwd'
+include ':app',
+        ':buildSrc',
+        ':domain',
+        ':features',
+        ':features:register',
+        ':features:home',
+        ':features:createpassword',
+        ':core',
+        ':libraries',
+        ':libraries:moduleinjection',
+        ':libraries:clearedpresenter'
+rootProject.name = 'Passwd'
