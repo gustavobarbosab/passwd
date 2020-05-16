@@ -6,6 +6,3 @@
 
 A aplicação consiste em armazenar senhas localmente, sem conexão com a web.
 Está sendo aplicado o padrão MVVM e também está sendo utilizado conceitos da Clean Architecture.
-Inicialmente a aplicação está dividida em dois módulos "app" e "domain", porém futuramente o pacote "data" se tornará um novo módulo.
-
-Obs: A aplicação ainda está em fase de desenvolvimento, será feito um refinamento do código e a implementação de testes.
