@@ -73,4 +73,6 @@ object Dependencies {
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val navigationDynamicFeature =
         "androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigation}"
+
+    const val viewPager2 = "androidx.viewpager2:viewpager2:${Versions.viewpager2}"
 }

@@ -1,6 +1,10 @@
 <resources>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Bem vindo</string>
+    <string name="welcome_message">é muito bom ter você conosco</string>
+    <string name="onboarding_informative_message">Vamos precisar cadastrar algumas informações para acesso ao app. É rápido =D</string>
+    <string name="your_name">Seu nome</string>
+    <string name="your_password">Sua senha</string>
+    <string name="confirm_password">Confirme a senha</string>
 
 </resources>

@@ -19,4 +19,17 @@ class OnboardingInformativeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_onboarding_informative, container, false)
     }
 
+
+
+
+
+
+
+
+
+
+    companion object{
+        fun newInstance() = OnboardingInformativeFragment()
+    }
+
 }

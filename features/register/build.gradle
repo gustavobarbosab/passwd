@@ -1,6 +1,7 @@
 apply plugin: 'com.android.dynamic-feature'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -11,6 +12,10 @@ android {
         versionCode 1
         versionName "1.0"
 
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     compileOptions {
@@ -28,4 +33,15 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':app')
+
+    implementation Dependencies.appcompat
+    implementation Dependencies.constraint_layout
+    implementation Dependencies.viewPager2
+    implementation Dependencies.material
+
+    implementation Dependencies.koin_android
+    implementation Dependencies.koin_viewmodel
+    implementation Dependencies.koin_scope
+
+    implementation Dependencies.rxandroid
 }

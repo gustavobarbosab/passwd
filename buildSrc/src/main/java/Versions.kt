@@ -8,7 +8,7 @@ object Versions {
     const val appcompat = "1.0.2"
     const val recyclerview = "1.0.0"
     const val constraintLayout = "1.1.3"
-    const val material = "1.1.0-alpha04"
+    const val material = "1.1.0-beta01"
     const val cardview = "1.0.0"
     const val annotation = "1.1.0"
 
@@ -66,4 +66,7 @@ object Versions {
 
     // NAVIGATION
     const val navigation = "2.3.0-alpha05"
+
+    // ViewPager2
+    const val viewpager2= "1.0.0"
 }
