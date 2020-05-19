@@ -1,20 +1,7 @@
 package com.passwd.ui.authentication
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import androidx.lifecycle.Observer
-import com.google.android.material.snackbar.Snackbar
-import com.passwd.R
-import com.passwd.databinding.ActivityAuthenticationBinding
-import com.passwd.ui.authentication.model.AuthenticationState
-import com.passwd.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_authentication.authContainer
-import kotlinx.android.synthetic.main.activity_authentication.passwordTextField
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.getViewModel
-
+/*
+ TODO será adequado posteriormente
 class AuthenticationActivity : BaseActivity<ActivityAuthenticationBinding, AuthenticationViewModel>() {
 
     override val layoutId: Int = R.layout.activity_authentication
@@ -54,3 +41,4 @@ class AuthenticationActivity : BaseActivity<ActivityAuthenticationBinding, Authe
         fun newIntent(context: Context) = Intent(context, AuthenticationActivity::class.java)
     }
 }
+*/

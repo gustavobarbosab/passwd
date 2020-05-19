@@ -12,6 +12,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/commons" />
+            <option value="$PROJECT_DIR$/commons/extension" />
+            <option value="$PROJECT_DIR$/commons/ui" />
+            <option value="$PROJECT_DIR$/commons/widget" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/features" />
@@ -21,6 +25,7 @@
             <option value="$PROJECT_DIR$/libraries" />
             <option value="$PROJECT_DIR$/libraries/clearedpresenter" />
             <option value="$PROJECT_DIR$/libraries/moduleinjection" />
+            <option value="$PROJECT_DIR$/libraries/swipecontroller" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

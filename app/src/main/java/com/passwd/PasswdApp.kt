@@ -5,7 +5,6 @@ import com.passwd.di.AppModule
 import com.passwd.core.di.DataSourceModule
 import com.passwd.core.di.DatabaseModule
 import com.passwd.core.di.RepositoryModule
-import com.passwd.ui.authentication.di.AuthenticationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -27,8 +26,7 @@ class PasswdApp : Application() {
                     AppModule.module,
                     DatabaseModule.module,
                     DataSourceModule.module,
-                    RepositoryModule.module,
-                    AuthenticationModule.module
+                    RepositoryModule.module
                 )
             )
         }

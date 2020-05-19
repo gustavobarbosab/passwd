@@ -4,8 +4,8 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.passwd.common.Event
-import com.passwd.common.extension.workIOThread
+import com.gustavobarbosab.databinding.Event
+import com.gustavobarbosab.extension.workIOThread
 import io.github.gustavobarbosab.domain.model.PasswordModel
 import io.github.gustavobarbosab.domain.repository.PasswordRepository
 import io.reactivex.disposables.CompositeDisposable

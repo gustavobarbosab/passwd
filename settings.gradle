@@ -8,5 +8,10 @@ include ':app',
         ':core',
         ':libraries',
         ':libraries:moduleinjection',
-        ':libraries:clearedpresenter'
+        ':libraries:clearedpresenter',
+        ':commons',
+        ':commons:ui',
+        ':commons:widget'
 rootProject.name = 'Passwd'
+include ':commons:extension'
+include ':libraries:swipecontroller'

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.passwd.common.Event
+import com.gustavobarbosab.databinding.Event
 import com.passwd.home.model.HomeBanner
 import com.passwd.home.model.HomeItemPassword
 import com.passwd.home.model.HomeMapper

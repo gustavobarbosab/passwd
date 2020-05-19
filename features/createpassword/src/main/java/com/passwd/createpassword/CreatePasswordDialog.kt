@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.gustavobarbosab.extension.setNavigationResult
 import com.gustavobarbosab.moduleinjection.KoinModuleConfig
 import com.gustavobarbosab.moduleinjection.KoinModuleInjection
-import com.passwd.common.extension.setNavigationResult
 import com.passwd.createpassword.databinding.DialogCreatePasswordBinding
 import com.passwd.createpassword.di.CreatePasswordModule
 import io.github.gustavobarbosab.domain.model.PasswordCreationResult

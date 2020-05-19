@@ -1,5 +1,6 @@
 package com.passwd.ui.authentication.di
 
+/*
 import com.passwd.ui.authentication.AuthenticationActivity
 import com.passwd.ui.authentication.AuthenticationViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -12,4 +13,4 @@ object AuthenticationModule {
             viewModel { AuthenticationViewModel() }
         }
     }
-}
+}*/
