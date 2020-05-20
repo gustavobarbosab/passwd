@@ -1,4 +1,4 @@
-package io.github.gustavobarbosab.domain.model
+package com.passwd.core.domain.model
 
 data class PasswordModel(
     val id: Long? = null,

@@ -8,7 +8,6 @@ import org.koin.dsl.module
 object DatabaseModule {
     val module = module {
         single { Room.databaseBuilder(get<Context>().applicationContext, PasswdDatabase::class.java, "database-passwd").build() }
-
         single { get<PasswdDatabase>().passwordDao() }
     }
 }

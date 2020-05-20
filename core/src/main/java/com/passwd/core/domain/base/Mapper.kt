@@ -1,4 +1,4 @@
-package io.github.gustavobarbosab.domain.base
+package com.passwd.core.domain.base
 
 interface Mapper<FIRST, SECOND> {
     fun transform(value: FIRST): SECOND

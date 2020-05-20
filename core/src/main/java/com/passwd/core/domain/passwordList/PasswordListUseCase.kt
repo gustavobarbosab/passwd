@@ -1,6 +1,6 @@
-package io.github.gustavobarbosab.domain.interactor.passwordList
+package com.passwd.core.domain.passwordList
 
-import io.github.gustavobarbosab.domain.model.PasswordModel
+import com.passwd.core.domain.model.PasswordModel
 import io.reactivex.Completable
 import io.reactivex.Single
 

@@ -2,8 +2,8 @@ package com.passwd.core.data.source.local
 
 import com.passwd.core.data.database.dao.PasswordDao
 import com.passwd.core.data.mapper.PasswordMapper
-import io.github.gustavobarbosab.domain.model.PasswordModel
-import io.github.gustavobarbosab.domain.source.PasswordDataSource
+import com.passwd.core.domain.model.PasswordModel
+import com.passwd.core.domain.source.PasswordDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 

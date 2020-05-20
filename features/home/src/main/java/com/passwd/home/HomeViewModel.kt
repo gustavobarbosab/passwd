@@ -9,8 +9,8 @@ import com.passwd.home.model.HomeBanner
 import com.passwd.home.model.HomeItemPassword
 import com.passwd.home.model.HomeMapper
 import com.passwd.home.model.HomeStates
-import io.github.gustavobarbosab.domain.interactor.passwordList.PasswordListUseCase
-import io.github.gustavobarbosab.domain.model.PasswordModel
+import com.passwd.core.domain.passwordList.PasswordListUseCase
+import com.passwd.core.domain.model.PasswordModel
 
 class HomeViewModel(private val useCase: PasswordListUseCase,
                     private val mapper: HomeMapper) : ViewModel() {

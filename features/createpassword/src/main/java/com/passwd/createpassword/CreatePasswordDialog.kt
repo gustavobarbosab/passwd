@@ -13,7 +13,7 @@ import com.gustavobarbosab.moduleinjection.KoinModuleConfig
 import com.gustavobarbosab.moduleinjection.KoinModuleInjection
 import com.passwd.createpassword.databinding.DialogCreatePasswordBinding
 import com.passwd.createpassword.di.CreatePasswordModule
-import io.github.gustavobarbosab.domain.model.PasswordCreationResult
+import com.passwd.core.domain.model.PasswordCreationResult
 import kotlinx.android.synthetic.main.dialog_create_password.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 

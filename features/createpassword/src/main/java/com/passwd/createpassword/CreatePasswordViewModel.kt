@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gustavobarbosab.databinding.Event
 import com.gustavobarbosab.extension.workIOThread
-import io.github.gustavobarbosab.domain.model.PasswordModel
-import io.github.gustavobarbosab.domain.repository.PasswordRepository
+import com.passwd.core.domain.model.PasswordModel
+import com.passwd.core.domain.repository.PasswordRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class CreatePasswordViewModel(private val passwordRepository: PasswordRepository) : ViewModel() {

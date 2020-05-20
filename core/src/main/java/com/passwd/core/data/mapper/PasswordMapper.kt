@@ -1,8 +1,8 @@
 package com.passwd.core.data.mapper
 
 import com.passwd.core.data.database.dto.PasswordDto
-import io.github.gustavobarbosab.domain.base.Mapper
-import io.github.gustavobarbosab.domain.model.PasswordModel
+import com.passwd.core.domain.base.Mapper
+import com.passwd.core.domain.model.PasswordModel
 
 class PasswordMapper : Mapper<PasswordDto, PasswordModel> {
     override fun transform(value: PasswordDto): PasswordModel =

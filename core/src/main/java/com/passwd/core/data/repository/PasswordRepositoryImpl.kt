@@ -1,8 +1,8 @@
 package com.passwd.core.data.repository
 
-import io.github.gustavobarbosab.domain.model.PasswordModel
-import io.github.gustavobarbosab.domain.repository.PasswordRepository
-import io.github.gustavobarbosab.domain.source.PasswordDataSource
+import com.passwd.core.domain.model.PasswordModel
+import com.passwd.core.domain.repository.PasswordRepository
+import com.passwd.core.domain.source.PasswordDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
