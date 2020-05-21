@@ -9,12 +9,7 @@ import org.koin.dsl.module
 
 object CreatePasswordModule {
 
-    const val SCOPE_NAME = "SCOPE_NAME.CreatePasswordModule"
-
     val module = module {
-        scope(named(SCOPE_NAME)) {
-            viewModel { CreatePasswordViewModel(get()) }
-            factory<PasswordListUseCase> { PasswordListUseCaseImpl(get()) }
-        }
+        viewModel { CreatePasswordViewModel(get()) }
     }
 }

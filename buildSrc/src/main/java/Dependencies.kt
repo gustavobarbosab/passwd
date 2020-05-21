@@ -39,8 +39,8 @@ object Dependencies {
     const val room_test = "androidx.room:room-testing::${Versions.room_version}"
 
     const val koin_android = "org.koin:koin-android:${Versions.koin_android}"
-    const val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin_viewmodel}"
-    const val koin_scope = "org.koin:koin-androidx-scope:${Versions.koin_scope}"
+    const val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin_android}"
+    const val koin_scope = "org.koin:koin-androidx-scope:${Versions.koin_android}"
 
     const val shimmer = "com.facebook.shimmer:shimmer:${Versions.shimmer}"
 

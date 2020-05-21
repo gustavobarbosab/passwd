@@ -9,33 +9,29 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.gustavobarbosab.extension.setNavigationResult
-import com.gustavobarbosab.moduleinjection.KoinModuleConfig
 import com.gustavobarbosab.moduleinjection.KoinModuleInjection
 import com.passwd.createpassword.databinding.DialogCreatePasswordBinding
 import com.passwd.createpassword.di.CreatePasswordModule
 import com.passwd.core.domain.model.PasswordCreationResult
 import kotlinx.android.synthetic.main.dialog_create_password.*
+import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.module.Module
 
 class CreatePasswordDialog : BottomSheetDialogFragment() {
 
-    private val moduleInjection = KoinModuleInjection(
-        KoinModuleConfig(
-            this,
-            "CREATE_PASSWORD",
-            CreatePasswordModule.SCOPE_NAME,
-            listOf(CreatePasswordModule.module)
-        )
+    private var moduleInjection: KoinModuleInjection = KoinModuleInjection(
+        listOf(CreatePasswordModule.module)
     )
-    lateinit var viewModel: CreatePasswordViewModel
-    lateinit var binding: DialogCreatePasswordBinding
 
-    private val scopeFragment
-        get() = moduleInjection.primaryScope
+    private val viewModel: CreatePasswordViewModel by viewModel()
+    lateinit var binding: DialogCreatePasswordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
+        moduleInjection.injectFeatures()
     }
 
     override fun onCreateView(
@@ -43,7 +39,6 @@ class CreatePasswordDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = scopeFragment.getViewModel(this)
         binding =
             DataBindingUtil
                 .inflate(

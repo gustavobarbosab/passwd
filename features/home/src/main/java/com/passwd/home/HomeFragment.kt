@@ -4,10 +4,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.gustavobarbosab.moduleinjection.KoinModuleConfig
-import com.passwd.home.databinding.FragmentHomeBinding
-import com.passwd.home.di.HomeModule
-import com.passwd.home.model.HomeStates
 import com.gustavobarbosab.databinding.BaseFragment
 import com.gustavobarbosab.extension.getNavigationResult
 import com.gustavobarbosab.extension.showShortToast
@@ -15,23 +11,25 @@ import com.gustavobarbosab.swipecontroller.ButtonProperties
 import com.gustavobarbosab.swipecontroller.SwipeController
 import com.gustavobarbosab.swipecontroller.SwipeControllerConfiguration
 import com.gustavobarbosab.swipecontroller.SwipeControllerProperties
+import com.passwd.R.color.colorDelete
+import com.passwd.home.databinding.FragmentHomeBinding
+import com.passwd.home.di.HomeModule
+import com.passwd.home.model.HomeStates
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.module.Module
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
-    override var koinModuleConfig: KoinModuleConfig? = KoinModuleConfig(
-        owner = this,
-        primaryScopeId = "HOME_ID",
-        primaryScopeName = HomeModule.SCOPE_NAME,
-        modules = listOf(HomeModule.module)
-    )
     override val layoutId: Int = R.layout.fragment_home
+    override fun modules(): List<Module> = listOf(HomeModule.module)
 
-    lateinit var adapter: HomeRecyclerAdapter
+    private val adapter by inject<HomeRecyclerAdapter>()
+    private val viewModel by viewModel<HomeViewModel>()
 
     private val rightButtonRecycler = ButtonProperties(
-        com.passwd.R.color.colorDelete,
+        colorDelete,
         R.string.home_list_button_right
     ) { position -> viewModel.deletePassword(adapter.getPassword(position)) }
 
@@ -39,14 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private val deleteSnackBar by lazy {
         Snackbar.make(homeContainer, R.string.home_snackbar_delete_message, Snackbar.LENGTH_SHORT)
-            .apply {
-                setAction(R.string.home_snackbar_undo, undoDeleteListener)
-            }
-    }
-
-    override fun beforeCreatedView(view: View) {
-        viewModel = scopeFragment.getViewModel(this)
-        adapter = scopeFragment.get()
+            .apply { setAction(R.string.home_snackbar_undo, undoDeleteListener) }
     }
 
     override fun afterCreateView(view: View) {

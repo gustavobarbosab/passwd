@@ -52,9 +52,7 @@ object Versions {
     const val rxandroid = "2.1.1"
 
     //KOIN
-    const val koin_android = "2.0.1"
-    const val koin_viewmodel = "2.0.1"
-    const val koin_scope = "2.0.1"
+    const val koin_android = "2.1.5"
 
     //TEST
     const val junit = "4.12"

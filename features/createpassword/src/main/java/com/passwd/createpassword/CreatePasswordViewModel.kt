@@ -1,5 +1,6 @@
 package com.passwd.createpassword
 
+import android.annotation.SuppressLint
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,12 +8,10 @@ import androidx.lifecycle.ViewModel
 import com.gustavobarbosab.databinding.Event
 import com.gustavobarbosab.extension.workIOThread
 import com.passwd.core.domain.model.PasswordModel
-import com.passwd.core.domain.repository.PasswordRepository
+import com.passwd.core.domain.passwordList.PasswordListUseCase
 import io.reactivex.disposables.CompositeDisposable
 
-class CreatePasswordViewModel(private val passwordRepository: PasswordRepository) : ViewModel() {
-
-    private val compositeDisposable = CompositeDisposable()
+class CreatePasswordViewModel(private val passwordListUseCase: PasswordListUseCase) : ViewModel() {
 
     private val _onGenericError: MutableLiveData<Event<Unit>> = MutableLiveData()
     val genericError: LiveData<Event<Unit>> = _onGenericError
@@ -39,20 +38,19 @@ class CreatePasswordViewModel(private val passwordRepository: PasswordRepository
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun onValidationSuccess() {
         val key = passwordKey.get()!!
         val name = passwordName.get()!!
 
-        val disposable = passwordRepository
-            .savePassword(PasswordModel(name = name, password = key, color = colorSelected))
+        passwordListUseCase
+            .createPassword(PasswordModel(name = name, password = key, color = colorSelected))
             .workIOThread()
             .subscribe({
                 _onCreatePasswordSuccess.value = Event(Unit)
             }, {
                 _onGenericError.value = Event(Unit)
             })
-
-        compositeDisposable.add(disposable)
     }
 
     private fun validatePasswordKey(): Boolean = passwordKey.get()?.isNotEmpty() == true
@@ -60,7 +58,7 @@ class CreatePasswordViewModel(private val passwordRepository: PasswordRepository
     private fun validatePasswordName(): Boolean = passwordName.get()?.isNotEmpty() == true
 
     override fun onCleared() {
-        compositeDisposable.dispose()
+        passwordListUseCase.disposeAll()
         super.onCleared()
     }
 }

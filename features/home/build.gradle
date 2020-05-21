@@ -50,4 +50,5 @@ dependencies {
 
     implementation Dependencies.rxandroid
 
+    implementation Dependencies.lifecycle_viewmodel_ktx
 }

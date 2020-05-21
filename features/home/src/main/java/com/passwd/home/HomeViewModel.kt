@@ -42,7 +42,7 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
     @SuppressLint("CheckResult")
     fun fetchPasswords(force: Boolean) {
         useCase
-            .onFetchPasswords(force)
+            .fetchPasswords(force)
             .subscribe(this::onSuccess, this::onError)
     }
 
@@ -53,7 +53,7 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
     @SuppressLint("CheckResult")
     fun deletePassword(password: HomeItemPassword) {
         useCase
-            .onDeletePassword(mapper.transform(password))
+            .deletePassword(mapper.transform(password))
             .doOnComplete { _viewState.value = Event(HomeStates.DeleteSuccess) }
             .subscribe { fetchPasswords(true) }
     }

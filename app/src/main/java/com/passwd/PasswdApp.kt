@@ -1,7 +1,6 @@
 package com.passwd
 
 import android.app.Application
-import com.passwd.di.AppModule
 import com.passwd.core.di.DataSourceModule
 import com.passwd.core.di.DatabaseModule
 import com.passwd.core.di.RepositoryModule
@@ -23,7 +22,6 @@ class PasswdApp : Application() {
             androidContext(this@PasswdApp)
             modules(
                 listOf(
-                    AppModule.module,
                     DatabaseModule.module,
                     DataSourceModule.module,
                     RepositoryModule.module
