@@ -52,16 +52,16 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':domain')
     implementation project(':core')
     implementation project(':libraries:moduleinjection')
+    implementation project(':commons:ui')
+    implementation project(':commons:widget')
 
     // Base
     implementation Dependencies.appcompat
     implementation Dependencies.core
     implementation Dependencies.constraint_layout
     implementation Dependencies.material
-    implementation Dependencies.recyclerview
     implementation Dependencies.kotlin_stdlib_jdk7
 
     // Test

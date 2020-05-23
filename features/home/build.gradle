@@ -33,9 +33,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':app')
-    implementation project(':domain')
     implementation project(':core')
     implementation project(':libraries:moduleinjection')
+    implementation project(':commons:ui')
+    implementation project(':commons:extension')
+    implementation project(':commons:widget')
+    implementation project(':libraries:swipecontroller')
+    implementation project(':commons:widget')
 
     implementation Dependencies.appcompat
     implementation Dependencies.constraint_layout
@@ -46,4 +50,5 @@ dependencies {
 
     implementation Dependencies.rxandroid
 
+    implementation Dependencies.lifecycle_viewmodel_ktx
 }

@@ -1,6 +1,6 @@
+rootProject.name = 'Passwd'
 include ':app',
         ':buildSrc',
-        ':domain',
         ':features',
         ':features:register',
         ':features:home',
@@ -8,5 +8,9 @@ include ':app',
         ':core',
         ':libraries',
         ':libraries:moduleinjection',
-        ':libraries:clearedpresenter'
-rootProject.name = 'Passwd'
+        ':libraries:clearedpresenter',
+        ':commons',
+        ':commons:ui',
+        ':commons:widget',
+        ':commons:extension',
+        ':libraries:swipecontroller'

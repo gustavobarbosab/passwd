@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.passwd.common.Event
+import com.gustavobarbosab.databinding.Event
 import com.passwd.home.model.HomeBanner
 import com.passwd.home.model.HomeItemPassword
 import com.passwd.home.model.HomeMapper
 import com.passwd.home.model.HomeStates
-import io.github.gustavobarbosab.domain.interactor.passwordList.PasswordListUseCase
-import io.github.gustavobarbosab.domain.model.PasswordModel
+import com.passwd.core.domain.passwordList.PasswordListUseCase
+import com.passwd.core.domain.model.PasswordModel
 
 class HomeViewModel(private val useCase: PasswordListUseCase,
                     private val mapper: HomeMapper) : ViewModel() {
@@ -42,7 +42,7 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
     @SuppressLint("CheckResult")
     fun fetchPasswords(force: Boolean) {
         useCase
-            .onFetchPasswords(force)
+            .fetchPasswords(force)
             .subscribe(this::onSuccess, this::onError)
     }
 
@@ -53,7 +53,7 @@ class HomeViewModel(private val useCase: PasswordListUseCase,
     @SuppressLint("CheckResult")
     fun deletePassword(password: HomeItemPassword) {
         useCase
-            .onDeletePassword(mapper.transform(password))
+            .deletePassword(mapper.transform(password))
             .doOnComplete { _viewState.value = Event(HomeStates.DeleteSuccess) }
             .subscribe { fetchPasswords(true) }
     }

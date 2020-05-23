@@ -1,7 +1,7 @@
 package com.passwd.home.model
 
-import io.github.gustavobarbosab.domain.base.Mapper
-import io.github.gustavobarbosab.domain.model.PasswordModel
+import com.passwd.core.domain.base.Mapper
+import com.passwd.core.domain.model.PasswordModel
 
 class HomeMapper : Mapper<HomeItemPassword, PasswordModel> {
     override fun transform(value: HomeItemPassword): PasswordModel =
